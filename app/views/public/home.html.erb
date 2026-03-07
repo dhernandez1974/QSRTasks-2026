@@ -1,2 +1,10 @@
-<h1>Public#home</h1>
-<p>Find me in app/views/public/home.html.erb</p>
+<div class="py-12 flex flex-col items-center justify-center min-h-[calc(100vh-16rem)]">
+  <h1 class="text-5xl font-extrabold text-gray-900 mb-6">Welcome to QSRTasks</h1>
+  <p class="text-xl text-gray-600 mb-10 text-center max-w-2xl">
+    The ultimate solution for managing your Quick Service Restaurant tasks efficiently and reliably.
+  </p>
+  <div class="flex space-x-4">
+    <%= link_to "Get Started", new_organization_path, class: "bg-brand-accent text-white px-8 py-4 rounded-lg text-lg font-semibold hover:opacity-90 transition-opacity" %>
+    <%= link_to "Learn More", public_about_path, class: "bg-white text-brand-accent border-2 border-brand-accent px-8 py-4 rounded-lg text-lg font-semibold hover:bg-orange-50 transition-colors" %>
+  </div>
+</div>

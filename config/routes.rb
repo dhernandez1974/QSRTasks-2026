@@ -1,6 +1,23 @@
 Rails.application.routes.draw do
-  devise_for :users
-  devise_for :admins
+  resources :locations
+  get "dashboard/admin", as: :admin_dashboard
+  get "dashboard/user", as: :user_dashboard
+  get "dashboard/applicant", as: :applicant_dashboard
+  resources :organizations
+  devise_for :users, controllers: {
+    sessions: "user/sessions",
+    registrations: "user/registrations",
+    passwords: "user/passwords",
+    confirmations: "user/confirmations",
+    unlocks: "user/unlocks"
+  }
+  devise_for :admins, controllers: {
+    sessions: "administrator/admin/sessions",
+    registrations: "administrator/admin/registrations",
+    passwords: "administrator/admin/passwords",
+    confirmations: "administrator/admin/confirmations",
+    unlocks: "administrator/admin/unlocks"
+  }
   root "public#home"
   get "public/about"
   get "public/contact"

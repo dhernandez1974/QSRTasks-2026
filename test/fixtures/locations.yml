@@ -1,0 +1,31 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  number: MyString
+  name: MyString
+  street: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  phone: MyString
+  email: MyString
+  safe_count: 1
+  headset_count: 1
+  ipad_count: 1
+  location_type: Traditional
+  organization: one
+
+two:
+  number: MyString
+  name: MyString
+  street: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  phone: MyString
+  email: MyString
+  safe_count: 1
+  headset_count: 1
+  ipad_count: 1
+  location_type: Traditional
+  organization: two

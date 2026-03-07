@@ -1,0 +1,88 @@
+<%= form_with(model: organization) do |f| %>
+  <% if organization.errors.any? || contact.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(organization.errors.count + contact.errors.count, "error") %> prohibited this organization from being saved:</h2>
+
+      <ul>
+        <% organization.errors.each do |error| %>
+          <li>Organization: <%= error.full_message %></li>
+        <% end %>
+        <% contact.errors.each do |error| %>
+          <li>User: <%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset>
+    <legend>Organization Details</legend>
+    <div>
+      <%= f.label :name, style: "display: block" %>
+      <%= f.text_field :name %>
+    </div>
+
+    <div>
+      <%= f.label :phone, style: "display: block" %>
+      <%= f.text_field :phone %>
+    </div>
+
+    <div>
+      <%= f.label :eid, style: "display: block" %>
+      <%= f.text_field :eid %>
+    </div>
+
+    <div>
+      <%= f.label :primary_eid, style: "display: block" %>
+      <%= f.text_field :primary_eid %>
+    </div>
+
+    <div>
+      <%= f.label :street, style: "display: block" %>
+      <%= f.text_field :street %>
+    </div>
+
+    <div>
+      <%= f.label :city, style: "display: block" %>
+      <%= f.text_field :city %>
+    </div>
+
+    <div>
+      <%= f.label :state, style: "display: block" %>
+      <%= f.text_field :state %>
+    </div>
+
+    <div>
+      <%= f.label :zip, style: "display: block" %>
+      <%= f.text_field :zip %>
+    </div>
+
+    <div>
+      <%= f.label :primary_operator, style: "display: block" %>
+      <%= f.check_box :primary_operator %>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Contact Person (New User)</legend>
+    <%= fields_for :user, contact do |u| %>
+      <div>
+        <%= u.label :email, style: "display: block" %>
+        <%= u.email_field :email %>
+      </div>
+
+      <div>
+        <%= u.label :password, style: "display: block" %>
+        <%= u.password_field :password %>
+      </div>
+
+      <div>
+        <%= u.label :password_confirmation, style: "display: block" %>
+        <%= u.password_field :password_confirmation %>
+      </div>
+    <% end %>
+  </fieldset>
+
+  <div>
+    <%= f.submit %>
+  </div>
+<% end %>

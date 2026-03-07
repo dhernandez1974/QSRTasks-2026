@@ -1,0 +1,57 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Organization: <%= @organization.name %></h1>
+
+<div>
+  <p>
+    <strong>Phone:</strong>
+    <%= @organization.phone %>
+  </p>
+
+  <p>
+    <strong>EID:</strong>
+    <%= @organization.eid %>
+  </p>
+  
+  <p>
+    <strong>Primary EID:</strong>
+    <%= @organization.primary_eid %>
+  </p>
+
+  <p>
+    <strong>Street:</strong>
+    <%= @organization.street %>
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    <%= @organization.city %>
+  </p>
+
+  <p>
+    <strong>State:</strong>
+    <%= @organization.state %>
+  </p>
+
+  <p>
+    <strong>Zip:</strong>
+    <%= @organization.zip %>
+  </p>
+
+  <p>
+    <strong>Primary operator:</strong>
+    <%= @organization.primary_operator %>
+  </p>
+
+  <p>
+    <strong>Contact Email:</strong>
+    <%= @organization.contact.email %>
+  </p>
+</div>
+
+<div>
+  <%= link_to "Edit this organization", edit_organization_path(@organization) %> |
+  <%= link_to "Back to organizations", organizations_path %>
+
+  <%= button_to "Destroy this organization", @organization, method: :delete, data: { confirm: "Are you sure?" } %>
+</div>

@@ -1,0 +1,12 @@
+<% content_for :title, "Editing location" %>
+
+<div class="mb-4">
+  <%= link_to "Back to locations", locations_path, class: "text-brand-accent hover:text-orange-700 font-medium" %>
+</div>
+
+<div class="bg-white shadow sm:rounded-lg">
+  <div class="px-4 py-5 sm:p-6">
+    <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Editing Location: <%= @location.name %></h3>
+    <%= render "form", location: @location %>
+  </div>
+</div>
