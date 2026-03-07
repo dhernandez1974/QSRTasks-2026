@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_and_belongs_to_many :locations
 
   before_save :normalize_attributes
+  validates :phone_number, uniqueness: true, allow_nil: true
 
   private
 

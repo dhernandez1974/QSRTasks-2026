@@ -36,7 +36,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to organization_url(Organization.last)
+    assert_redirected_to organization_url(Organization.order(created_at: :asc).last)
   end
 
   test "should show organization" do

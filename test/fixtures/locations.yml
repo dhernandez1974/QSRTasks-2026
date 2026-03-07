@@ -1,14 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  number: MyString
+  number: "1001"
   name: MyString
   street: MyString
   city: MyString
   state: MyString
   zip: MyString
-  phone: MyString
-  email: MyString
+  phone: "111-222-3331"
+  email: location_one@example.com
   safe_count: 1
   headset_count: 1
   ipad_count: 1
@@ -16,14 +16,14 @@ one:
   organization: one
 
 two:
-  number: MyString
+  number: "1002"
   name: MyString
   street: MyString
   city: MyString
   state: MyString
   zip: MyString
-  phone: MyString
-  email: MyString
+  phone: "111-222-3332"
+  email: location_two@example.com
   safe_count: 1
   headset_count: 1
   ipad_count: 1

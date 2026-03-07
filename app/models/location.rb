@@ -4,6 +4,7 @@ class Location < ApplicationRecord
   has_and_belongs_to_many :users
 
   before_save :normalize_attributes
+  validates :email, :phone, presence: true, uniqueness: { case_sensitive: false }
 
   private
 

@@ -1,13 +1,13 @@
 Admin.create!(email: 'admin@qsrtasks.com', password: 'mina1973', password_confirmation: 'mina1973', first_name:
   'Daniel', last_name: 'Hernandez')
 
-Organization.create!(name: 'Stagg Restaurants Partnership', phone: '210-375-7100', eid: 'ef0020032',
+Organization.create!(name: 'Stagg Restaurants Partnership', phone: '210-375-7100', eid: 'ef002032',
   street: '8507 Speedway Drive', city: 'San Antonio', state: 'TX', zip: '78230',
-  primary_operator: true, primary_eid: 'ef0020032')
+  primary_operator: true, primary_eid: 'ef002032')
 
 Organization.create!(name: 'Stagg Restaurants Partnership II', phone: '210-375-7100', eid: 'e0071374',
   street: '8507 Speedway Drive', city: 'San Antonio', state: 'TX', zip: '78230',
-  primary_operator: false, primary_eid: 'ef0020032')
+  primary_operator: false, primary_eid: 'ef002032')
 
 stagg = Organization.find_by(eid: 'ef002032')
 puts "Creating Locations"

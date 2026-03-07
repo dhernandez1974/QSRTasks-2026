@@ -72,7 +72,7 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal "secret_eid", organization.reload.eid
     
     # Check the raw value in the database
-    raw_eid = Organization.connection.select_value("SELECT eid FROM organizations WHERE id = #{organization.id}")
+    raw_eid = Organization.connection.select_value("SELECT eid FROM organizations WHERE id = '#{organization.id}'")
     assert_not_equal "SECRET_EID", raw_eid
     # Rails encryption adds a header and it's base64 encoded by default
     assert raw_eid.start_with?("{\"p\":") || raw_eid.start_with?("{")
