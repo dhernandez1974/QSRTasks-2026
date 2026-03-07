@@ -7,7 +7,7 @@ class Webhooks::DatapassController < Webhooks::BaseController
     record = InboundWebhook.create!(body: payload)
 
     # Offload processing to background job with correct naming convention
-    DatapassWebhookRouterJob.perform_later(record, request.content_type)
+    Datapass::DatapassWebhookRouterJob.perform_later(record, request.content_type)
 
     head :ok
   end

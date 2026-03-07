@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_07_183411) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_07_222303) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -42,13 +42,80 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_07_183411) do
     t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
   end
 
+  create_table "datapass_employee_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "birth_date"
+    t.datetime "created_at", null: false
+    t.string "crew_trainer_trained"
+    t.date "crew_trainer_trained_date"
+    t.date "current_role_promotion_date"
+    t.string "eid"
+    t.string "email"
+    t.string "employee_status"
+    t.string "first_name"
+    t.date "first_punch_date"
+    t.string "geid"
+    t.string "gerid"
+    t.date "graduation_date"
+    t.string "hu_graduate"
+    t.string "jtc"
+    t.string "last_name"
+    t.uuid "location_id", null: false
+    t.string "nick_name"
+    t.uuid "organization_id", null: false
+    t.date "organization_start_date"
+    t.date "organization_termination_date"
+    t.date "orientation_date"
+    t.string "payroll_id"
+    t.string "primary_job_title"
+    t.string "primary_phone"
+    t.string "primary_store_nsn"
+    t.string "reason"
+    t.string "secondary_job_title"
+    t.string "secondary_jtc"
+    t.jsonb "shared_stores"
+    t.string "shift_manager_trained"
+    t.date "shift_manager_trained_date"
+    t.float "trailing_4_weeks_actual_hours_worked"
+    t.float "trailing_7_days_actual_hours_worked"
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_datapass_employee_details_on_location_id"
+    t.index ["organization_id"], name: "index_datapass_employee_details_on_organization_id"
+  end
+
+  create_table "datapass_idmgmts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "country"
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "first_name"
+    t.string "geid"
+    t.string "gerid"
+    t.string "glin"
+    t.jsonb "jtcs"
+    t.string "last_name"
+    t.uuid "location_id", null: false
+    t.jsonb "matching_criteria"
+    t.string "middle_initial"
+    t.date "modified"
+    t.string "nsn"
+    t.uuid "organization_id", null: false
+    t.date "organization_start_date"
+    t.date "organization_termination_date"
+    t.string "payroll_id"
+    t.jsonb "phones"
+    t.jsonb "shares"
+    t.string "termination_code"
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_datapass_idmgmts_on_location_id"
+    t.index ["organization_id"], name: "index_datapass_idmgmts_on_organization_id"
+  end
+
   create_table "hr_ssns", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.string "eid", null: false
+    t.string "geid", null: false
     t.uuid "organization_id"
     t.string "ssn", null: false
     t.datetime "updated_at", null: false
-    t.index ["eid"], name: "index_hr_ssns_on_eid"
+    t.index ["geid"], name: "index_hr_ssns_on_geid"
   end
 
   create_table "inbound_webhooks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -129,6 +196,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_07_183411) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "datapass_employee_details", "locations"
+  add_foreign_key "datapass_employee_details", "organizations"
+  add_foreign_key "datapass_idmgmts", "locations"
+  add_foreign_key "datapass_idmgmts", "organizations"
   add_foreign_key "hr_ssns", "organizations"
   add_foreign_key "locations", "organizations"
   add_foreign_key "users", "locations"

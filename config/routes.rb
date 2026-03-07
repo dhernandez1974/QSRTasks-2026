@@ -24,6 +24,13 @@ Rails.application.routes.draw do
   get "public/privacy"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  namespace :webhooks do
+    post "datapass", to: "datapass#create"
+    post "checkr", to: "checkr#create"
+    post "fullschedule", to: "fullschedule#create"
+    post "datapass_test", to: "datapass_test#create"
+  end
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check

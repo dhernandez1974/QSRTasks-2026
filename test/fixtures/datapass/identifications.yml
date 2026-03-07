@@ -1,0 +1,39 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  location: one
+  geid: MyString
+  first_name: MyString
+  nickname: MyString
+  last_initial: MyString
+  primary_time_card: MyString
+  secondary_time_card: MyString
+  home_store_nsn: MyString
+  unique_id: MyString
+  birth_day: 2026-03-07
+  ssn: MyString
+  email_address: MyString
+  zip_code: MyString
+  ethnicity: MyString
+  gender: MyString
+  emp_job_title_history: 
+
+two:
+  organization: two
+  location: two
+  geid: MyString
+  first_name: MyString
+  nickname: MyString
+  last_initial: MyString
+  primary_time_card: MyString
+  secondary_time_card: MyString
+  home_store_nsn: MyString
+  unique_id: MyString
+  birth_day: 2026-03-07
+  ssn: MyString
+  email_address: MyString
+  zip_code: MyString
+  ethnicity: MyString
+  gender: MyString
+  emp_job_title_history: 

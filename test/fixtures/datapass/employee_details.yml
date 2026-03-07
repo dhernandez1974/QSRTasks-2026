@@ -1,0 +1,71 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  location: one
+  primary_store_nsn: MyString
+  gerid: MyString
+  payroll_id: MyString
+  geid: MyString
+  eid: MyString
+  first_name: MyString
+  last_name: MyString
+  nick_name: MyString
+  primary_phone: MyString
+  birth_date: MyString
+  email: MyString
+  jtc: MyString
+  primary_job_title: MyString
+  secondary_jtc: MyString
+  secondary_job_title: MyString
+  employee_status: MyString
+  reason: MyString
+  organization_start_date: 2026-03-07
+  organization_termination_date: 2026-03-07
+  orientation_date: 2026-03-07
+  first_punch_date: 2026-03-07
+  trailing_7_days_actual_hours_worked: 1.5
+  trailing_4_weeks_actual_hours_worked: 1.5
+  crew_trainer_trained: MyString
+  crew_trainer_trained_date: 2026-03-07
+  shift_manager_trained: MyString
+  shift_manager_trained_date: 2026-03-07
+  hu_graduate: MyString
+  graduation_date: 2026-03-07
+  current_role_promotion_date: 2026-03-07
+  shared_stores: 
+
+two:
+  organization: two
+  location: two
+  primary_store_nsn: MyString
+  gerid: MyString
+  payroll_id: MyString
+  geid: MyString
+  eid: MyString
+  first_name: MyString
+  last_name: MyString
+  nick_name: MyString
+  primary_phone: MyString
+  birth_date: MyString
+  email: MyString
+  jtc: MyString
+  primary_job_title: MyString
+  secondary_jtc: MyString
+  secondary_job_title: MyString
+  employee_status: MyString
+  reason: MyString
+  organization_start_date: 2026-03-07
+  organization_termination_date: 2026-03-07
+  orientation_date: 2026-03-07
+  first_punch_date: 2026-03-07
+  trailing_7_days_actual_hours_worked: 1.5
+  trailing_4_weeks_actual_hours_worked: 1.5
+  crew_trainer_trained: MyString
+  crew_trainer_trained_date: 2026-03-07
+  shift_manager_trained: MyString
+  shift_manager_trained_date: 2026-03-07
+  hu_graduate: MyString
+  graduation_date: 2026-03-07
+  current_role_promotion_date: 2026-03-07
+  shared_stores: 

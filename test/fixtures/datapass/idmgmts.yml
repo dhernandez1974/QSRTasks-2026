@@ -1,0 +1,45 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  location: one
+  country: MyString
+  gerid: MyString
+  glin: MyString
+  nsn: MyString
+  modified: 2026-03-07
+  first_name: MyString
+  last_name: MyString
+  middle_initial: MyString
+  email: MyString
+  organization_start_date: 2026-03-07
+  organization_termination_date: 2026-03-07
+  termination_code: MyString
+  payroll_id: MyString
+  geid: MyString
+  matching_criteria: 
+  shares: 
+  jtcs: 
+  phones: 
+
+two:
+  organization: two
+  location: two
+  country: MyString
+  gerid: MyString
+  glin: MyString
+  nsn: MyString
+  modified: 2026-03-07
+  first_name: MyString
+  last_name: MyString
+  middle_initial: MyString
+  email: MyString
+  organization_start_date: 2026-03-07
+  organization_termination_date: 2026-03-07
+  termination_code: MyString
+  payroll_id: MyString
+  geid: MyString
+  matching_criteria: 
+  shares: 
+  jtcs: 
+  phones: 

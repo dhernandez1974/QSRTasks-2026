@@ -30,6 +30,7 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 gem "sidekiq"
+gem "csv", "~> 3.3"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -69,3 +70,6 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem 'aws-sdk-core', '~> 3.243'
+gem 'aws-sdk-s3', '~> 1.215'

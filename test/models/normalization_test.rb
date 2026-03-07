@@ -63,11 +63,11 @@ class NormalizationTest < ActiveSupport::TestCase
   test "hr_ssn normalization and association" do
     org = organizations(:one)
     hr_ssn = HrSsn.create!(
-      eid: "GEID-123",
+      geid: "GEID-123",
       ssn: "123456789",
       organization: org
     )
-    assert_equal "geid-123", hr_ssn.eid
+    assert_equal "geid-123", hr_ssn.geid
     assert_equal org, hr_ssn.organization
   end
 end

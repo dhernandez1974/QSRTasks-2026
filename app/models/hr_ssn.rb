@@ -1,8 +1,8 @@
 class HrSsn < ApplicationRecord
   belongs_to :organization
 
-  encrypts :eid, :ssn, deterministic: true
-  validates :eid, presence: true
+  encrypts :geid, :ssn, deterministic: true
+  validates :geid, presence: true
   validates :ssn, presence: true
 
   before_save :normalize_attributes
@@ -10,6 +10,6 @@ class HrSsn < ApplicationRecord
   private
 
   def normalize_attributes
-    self.eid = eid.to_s.downcase if eid.present?
+    self.geid = geid.to_s.downcase if geid.present?
   end
 end

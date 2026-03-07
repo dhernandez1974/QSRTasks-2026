@@ -42,6 +42,12 @@
     <orderEntry type="library" scope="PROVIDED" name="activesupport (v8.1.2, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="addressable (v2.8.8, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="ast (v2.4.3, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-eventstream (v1.4.0, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-partitions (v1.1223.0, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-sdk-core (v3.243.0, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-sdk-kms (v1.122.0, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-sdk-s3 (v1.215.0, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="aws-sigv4 (v1.12.1, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="base64 (v0.3.0, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bcrypt (v3.1.21, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bcrypt_pbkdf (v1.1.2, rbenv: 4.0.1) [gem]" level="application" />
@@ -57,6 +63,7 @@
     <orderEntry type="library" scope="PROVIDED" name="connection_pool (v3.0.2, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="crass (v1.0.6, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cssbundling-rails (v1.4.3, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="csv (v3.3.5, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="date (v3.5.1, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="debug (v1.11.1, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="devise (v5.0.2, rbenv: 4.0.1) [gem]" level="application" />
@@ -74,6 +81,7 @@
     <orderEntry type="library" scope="PROVIDED" name="io-console (v0.8.2, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="irb (v1.17.0, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jbuilder (v2.14.1, rbenv: 4.0.1) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jmespath (v1.6.2, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="jsbundling-rails (v1.3.1, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="json (v2.19.0, rbenv: 4.0.1) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="kamal (v2.10.1, rbenv: 4.0.1) [gem]" level="application" />
