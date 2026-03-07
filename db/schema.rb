@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_07_222303) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_07_225559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -80,6 +80,30 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_07_222303) do
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_datapass_employee_details_on_location_id"
     t.index ["organization_id"], name: "index_datapass_employee_details_on_organization_id"
+  end
+
+  create_table "datapass_identifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "birth_day"
+    t.datetime "created_at", null: false
+    t.string "email_address"
+    t.jsonb "emp_job_title_history"
+    t.string "ethnicity"
+    t.string "first_name"
+    t.string "geid"
+    t.string "gender"
+    t.string "home_store_nsn"
+    t.string "last_initial"
+    t.uuid "location_id", null: false
+    t.string "nickname"
+    t.uuid "organization_id", null: false
+    t.string "primary_time_card"
+    t.string "secondary_time_card"
+    t.string "ssn"
+    t.string "unique_id"
+    t.datetime "updated_at", null: false
+    t.string "zip_code"
+    t.index ["location_id"], name: "index_datapass_identifications_on_location_id"
+    t.index ["organization_id"], name: "index_datapass_identifications_on_organization_id"
   end
 
   create_table "datapass_idmgmts", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -198,6 +222,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_07_222303) do
 
   add_foreign_key "datapass_employee_details", "locations"
   add_foreign_key "datapass_employee_details", "organizations"
+  add_foreign_key "datapass_identifications", "locations"
+  add_foreign_key "datapass_identifications", "organizations"
   add_foreign_key "datapass_idmgmts", "locations"
   add_foreign_key "datapass_idmgmts", "organizations"
   add_foreign_key "hr_ssns", "organizations"

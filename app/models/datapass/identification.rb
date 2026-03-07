@@ -2,7 +2,7 @@ class Datapass::Identification < ApplicationRecord
   belongs_to :organization
   belongs_to :location
 
-  encrypts :geid, :email_address, :ssn, :first_name, :last_name, :birth_day, deterministic: true
+  encrypts :geid, :email_address, :ssn, :first_name, :last_name, deterministic: true
 
   before_save :normalize_attributes
 
