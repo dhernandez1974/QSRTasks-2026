@@ -1,0 +1,32 @@
+<%= form_with(model: [:organization, organization_department]) do |form| %>
+  <% if organization_department.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(organization_department.errors.count, "error") %> prohibited this organization_department from being saved:</h2>
+
+      <ul>
+        <% organization_department.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :organization_id, style: "display: block" %>
+    <%= form.collection_select :organization_id, Organization.all, :id, :name, prompt: true %>
+  </div>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :updated_by_id, style: "display: block" %>
+    <%= form.collection_select :updated_by_id, User.all, :id, :email, prompt: true %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

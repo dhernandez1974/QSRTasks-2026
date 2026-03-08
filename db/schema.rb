@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_08_051643) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_08_052556) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -247,6 +247,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_051643) do
     t.uuid "user_id"
   end
 
+  create_table "organization_departments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.uuid "organization_id", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "updated_by_id", null: false
+    t.index ["organization_id"], name: "index_organization_departments_on_organization_id"
+    t.index ["updated_by_id"], name: "index_organization_departments_on_updated_by_id"
+  end
+
   create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "city", null: false
     t.datetime "created_at", null: false
@@ -312,6 +322,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_051643) do
   add_foreign_key "datapass_new_hires", "organizations"
   add_foreign_key "hr_ssns", "organizations"
   add_foreign_key "locations", "organizations"
+  add_foreign_key "organization_departments", "organizations"
+  add_foreign_key "organization_departments", "users", column: "updated_by_id"
   add_foreign_key "users", "locations"
   add_foreign_key "users", "organizations"
 end

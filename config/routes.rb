@@ -1,6 +1,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  namespace :organization do
+    resources :departments
+  end
   authenticate :admin do
     mount Sidekiq::Web => "/sidekiq"
   end

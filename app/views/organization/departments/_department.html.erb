@@ -1,0 +1,17 @@
+<div id="<%= dom_id department %>">
+  <div>
+    <strong>Organization:</strong>
+    <%= department.organization.name if department.organization %>
+  </div>
+
+  <div>
+    <strong>Name:</strong>
+    <%= department.name %>
+  </div>
+
+  <div>
+    <strong>Updated by:</strong>
+    <%= department.updated_by.email if department.updated_by %>
+  </div>
+
+</div>
