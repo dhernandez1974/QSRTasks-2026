@@ -48,23 +48,23 @@ module Datapass
       when 'LZ-HR-Personal'
         Datapass::LifelenzPersonalJob.perform_later(payload_file, nsn, timestamp)
       when 'eR-HR-IdMgmtFull'
-        IdmgmtJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::IdmgmtJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-HR-IdMgmtFull'
-        LifelenzIdmgmtJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::LifelenzIdmgmtJob.perform_later(payload_file, nsn, timestamp)
       when 'eR-HR-SSN'
-        GeidMatchJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::GeidMatchJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-HR-SSN'
-        GeidMatchJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::GeidMatchJob.perform_later(payload_file, nsn, timestamp)
       when 'eR-HR-Identification'
-        IdentificationJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::IdentificationJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-HR-Identification'
-        LifelenzIdentificationJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::LifelenzIdentificationJob.perform_later(payload_file, nsn, timestamp)
       when 'eR-HR-IdMgmt'
-        IdmgmtJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::IdmgmtJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-HR-IdMgmt'
-        LifelenzIdmgmtJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::LifelenzIdmgmtJob.perform_later(payload_file, nsn, timestamp)
       when 'HR-EmployeeDetails'
-        EmployeeDetailsJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::EmployeeDetailsJob.perform_later(payload_file, nsn, timestamp)
       when 'eR-LSCHD-Projections'
 
       when 'eR-LSCHD-Schedule'
@@ -87,39 +87,39 @@ module Datapass
       when 'OTP-ACCREDITATION-DELTA'
 
       when 'TrainingTracking'
-        TrainingTrackingJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::TrainingTrackingJob.perform_later(payload_file, nsn, timestamp)
       when 'TrainingTrackingFull'
-        TrainingTrackingJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::TrainingTrackingJob.perform_later(payload_file, nsn, timestamp)
       when 'INVY-DTSERVTIMES'
-        InvyDtservtimesJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::InvyDtservtimesJob.perform_later(payload_file, nsn, timestamp)
       when 'INVY-KVSTIMES'
-        InvyKvstimesJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::InvyKvstimesJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-QtrHrSales'
-
+        # Datapass::CashHourlySaleJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-HourlySales'
-        # CashHourlySaleJob.perform_later(payload_file, nsn, timestamp)
+        # Datapass::CashHourlySaleJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-Delivery'
-        CashDeliveryJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::CashDeliveryJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-GMADeliveryDetails'
-
+        # Datapass::CashDeliveryJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-LSCHD-Schedule'
-        LifelenzScheduleJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::LifelenzScheduleJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-TIME-Open'
-        LifelenzPayperiodJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::LifelenzPayperiodJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-CashlessDetails'
-        CashlessDetailJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::CashlessDetailJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-OverOrShort'
-        CashOverShortJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::CashOverShortJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-CashlessSummary'
-
+        # Datapass::CashlessSummaryJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-CashSheet'
-        CashSheetJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::CashSheetJob.perform_later(payload_file, nsn, timestamp)
       when 'CASH-Deposits'
-        CashDepositJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::CashDepositJob.perform_later(payload_file, nsn, timestamp)
       when 'Invoices'
-        InvoiceJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::InvoiceJob.perform_later(payload_file, nsn, timestamp)
       when 'VoiceData'
-        VoiceDataJob.perform_later(payload_file, nsn, timestamp)
+        Datapass::VoiceDataJob.perform_later(payload_file, nsn, timestamp)
       else
         inbound_webhook.update(status: :processed)
       end

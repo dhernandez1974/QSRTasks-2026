@@ -67,6 +67,24 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to organizations_url
   end
 
+  test "should sync user info" do
+    assert_enqueued_with(job: Datapass::OrganizationUserInfoJob) do
+      post sync_user_info_organization_url(@organization)
+    end
+    assert_redirected_to organization_url(@organization)
+    assert_equal "Organization user info sync job has been started.", flash[:notice]
+  end
+
+  test "should sync user info with associated organizations for primary operator" do
+    @organization.update!(primary_operator: true, eid: "primary-eid")
+    associated_org = organizations(:two)
+    associated_org.update!(primary_eid: "primary-eid", primary_operator: false)
+
+    assert_enqueued_with(job: Datapass::OrganizationUserInfoJob, args: [{ organization_ids: [@organization.id, associated_org.id] }]) do
+      post sync_user_info_organization_url(@organization)
+    end
+  end
+
   test "should redirect to admin login when not signed in" do
     sign_out @admin
     get organizations_url

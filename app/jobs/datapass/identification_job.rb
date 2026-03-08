@@ -1,4 +1,4 @@
-class IdentificationJob < ApplicationJob
+class Datapass::IdentificationJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)

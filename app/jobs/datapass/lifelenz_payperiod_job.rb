@@ -1,4 +1,4 @@
-class LifelenzPayperiodJob < ApplicationJob
+class Datapass::LifelenzPayperiodJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)

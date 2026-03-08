@@ -1,4 +1,4 @@
-class InvyKvstimesJob < ApplicationJob
+class Datapass::InvyKvstimesJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)

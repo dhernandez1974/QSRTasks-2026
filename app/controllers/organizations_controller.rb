@@ -1,6 +1,6 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_admin!
-  before_action :set_organization, only: %i[ show edit update destroy ]
+  before_action :set_organization, only: %i[ show edit update destroy create_users sync_user_info ]
 
   # GET /organizations or /organizations.json
   def index
@@ -9,6 +9,29 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/1 or /organizations/1.json
   def show
+  end
+
+  def create_users
+    Datapass::CreateOrganizationUsersJob.perform_later(@organization.id)
+    redirect_to @organization, notice: "User creation job has been started."
+  end
+
+  def sync_user_info
+    organization_ids = [ @organization.id ]
+    if @organization.primary_operator?
+      organization_ids += Organization.where(primary_eid: @organization.eid).where(primary_operator: false).pluck(:id)
+    else
+      # If not primary operator, we might also want to include the primary operator if requested.
+      # The issue says: "pass the organization's eid along with any other eid's from other organizations that are associated with it."
+      # If I'm on a child organization, "associated" usually means the primary.
+      if @organization.primary_eid.present?
+        primary = Organization.find_by(eid: @organization.primary_eid, primary_operator: true)
+        organization_ids << primary.id if primary
+      end
+    end
+
+    Datapass::OrganizationUserInfoJob.perform_later(organization_ids: organization_ids.uniq)
+    redirect_to @organization, notice: "Organization user info sync job has been started."
   end
 
   # GET /organizations/new

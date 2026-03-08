@@ -9,6 +9,50 @@ class Organization < ApplicationRecord
   validates :primary_operator, inclusion: { in: [ true, false ] }
 
   before_save :normalize_attributes
+  after_create :set_default_departments
+  # after_create :set_default_vendor
+
+  def full_address
+    self.street + ", " + self.city + ", " + self.state + " " + self.zip
+  end
+
+  def set_default_departments
+    ops = Department.create(name: "Operations", organization: self)
+    admin = Department.create(name: "Administration", organization: self)
+    maint = Department.create(name: "Maintenance", organization: self)
+    owner = Position.create(department: admin, organization: self, name: "Owner", rate_type: "Salary",
+      authorized: Position::AUTHORIZED, authorization_level: "Organization", job_tier: "Staff", job_class: "Staff",
+      maintenance_team: true, maintenance_lead: false)
+    director = Position.create(department: admin, organization: self, name: "Director of Operations", rate_type:
+      "Salary", reports_to: owner.id, authorized: Position::AUTHORIZED, authorization_level: "Organization",
+      job_tier: "Staff", job_class: "Staff", maintenance_team: true, maintenance_lead: false)
+    om = Position.create(department: ops, organization: self, name: "Operations Manager", rate_type: "Salary",
+      reports_to: director.id, authorized: Position::AUTHORIZED, authorization_level: "Department",
+      job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false)
+    sup = Position.create(department: ops, organization: self, name: "Supervisor", rate_type: "Salary",
+      reports_to: om.id, authorized: Position::AUTHORIZED, authorization_level: "Department",
+      job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false)
+    gm = Position.create(department: ops, organization: self, name: "General Manager", rate_type: "Salary",
+      reports_to: sup.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false)
+    Position.create(department: ops, organization: self, name: "Department Manager", rate_type: "Hourly",
+      reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false)
+    Position.create(department: ops, organization: self, name: "Manager", rate_type: "Hourly",
+      reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false)
+    Position.create(department: ops, organization: self, name: "Crew", rate_type: "Hourly",
+      reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+      job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false)
+    Position.create(department: ops, organization: self, name: "Store Maintenance", rate_type: "Hourly",
+      reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+      job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false)
+  end
+
+  # def set_default_vendor
+  #   Vendor.create(name: self.name, phone: self.phone, street: self.street, city: self.city, state: self.state, zip: self.zip)
+  # end
+
 
   private
 

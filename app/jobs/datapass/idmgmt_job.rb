@@ -1,10 +1,10 @@
-class IdmgmtJob < ApplicationJob
+class Datapass::IdmgmtJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)
     store = Store.find_by(number: nsn.to_i)
     data["people"].each do |id|
-      Idmgmt.find_or_create_by(geid: id['person']['ids'][1]['value']) do |user|
+      Datapass::Idmgmt.find_or_create_by(geid: id['person']['ids'][1]['value']) do |user|
         user.update(
           modified_date: Date.strptime(id['person']['modified'], '%Y%m%d'),
           nsn: store.number, first_name: id['person']['first_name'],

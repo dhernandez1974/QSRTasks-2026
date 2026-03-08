@@ -1,6 +1,6 @@
 require 'csv'
 
-class VoiceDataJob < ApplicationJob
+class Datapass::VoiceDataJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)

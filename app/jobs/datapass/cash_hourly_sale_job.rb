@@ -1,4 +1,4 @@
-class CashHourlySaleJob < ApplicationJob
+class Datapass::CashHourlySaleJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)

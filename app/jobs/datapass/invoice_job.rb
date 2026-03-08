@@ -1,6 +1,6 @@
 require 'csv'
 
-class InvoiceJob < ApplicationJob
+class Datapass::InvoiceJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)

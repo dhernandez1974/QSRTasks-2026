@@ -1,4 +1,4 @@
-class CashDepositJob < ApplicationJob
+class Datapass::CashDepositJob < ApplicationJob
 	queue_as :default
 
 	def perform(data, nsn, timestamp)

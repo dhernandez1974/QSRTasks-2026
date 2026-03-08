@@ -12,7 +12,12 @@ Rails.application.routes.draw do
   get "dashboard/admin", as: :admin_dashboard
   get "dashboard/user", as: :user_dashboard
   get "dashboard/applicant", as: :applicant_dashboard
-  resources :organizations
+  resources :organizations do
+    member do
+      post :create_users
+      post :sync_user_info
+    end
+  end
   devise_for :users, controllers: {
     sessions: "user/sessions",
     registrations: "user/registrations",
