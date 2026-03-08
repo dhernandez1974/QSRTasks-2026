@@ -4,14 +4,14 @@
 
 <div class="flex justify-between items-center mb-6">
   <h1 class="text-3xl font-bold text-gray-900">Locations</h1>
-  <%= link_to "New location", new_location_path, class: "bg-brand-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:opacity-90" %>
+  <%= link_to "New location", new_organization_location_path, class: "bg-brand-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:opacity-90" %>
 </div>
 
 <div id="locations" class="bg-white shadow overflow-hidden sm:rounded-md">
   <ul role="list" class="divide-y divide-gray-200">
     <% @locations.each do |location| %>
       <li>
-        <%= link_to location, class: "block hover:bg-gray-50" do %>
+        <%= link_to organization_location_path(location), class: "block hover:bg-gray-50" do %>
           <div class="px-4 py-4 sm:px-6">
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-brand-accent truncate">

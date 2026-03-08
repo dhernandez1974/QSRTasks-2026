@@ -3,7 +3,7 @@ require "test_helper"
 class Datapass::EmployeeDetailsJobTest < ActiveJob::TestCase
   setup do
     @organization = organizations(:one)
-    @location = locations(:one)
+    @location = organization_locations(:one)
     @location.update!(number: "1480") # Set matching NSN from sample file
 
     @sample_file = Rails.root.join('tmp/0001480-Accenture-HR-EmployeeDetails.json')

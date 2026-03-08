@@ -1,7 +1,7 @@
 class Organization < ApplicationRecord
   has_one :contact, class_name: "User", dependent: :destroy
-  has_many :hr_ssns, dependent: :destroy
-  has_many :locations, dependent: :destroy
+  has_many :hr_ssns, class_name: "Datapass::HrSsn", dependent: :destroy
+  has_many :locations, class_name: "Organization::Location", dependent: :destroy
 
   encrypts :eid, deterministic: true
 

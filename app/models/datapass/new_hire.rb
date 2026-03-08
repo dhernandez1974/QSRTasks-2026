@@ -1,6 +1,7 @@
 class Datapass::NewHire < ApplicationRecord
+  self.table_name = "datapass_new_hires"
   belongs_to :organization
-  belongs_to :location
+  belongs_to :location, class_name: "Organization::Location"
 
   encrypts :ssn, :p, :e, :fn, :ln, :mn, :a, deterministic: true
 

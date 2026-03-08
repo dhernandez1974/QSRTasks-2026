@@ -2,7 +2,7 @@ class Datapass::GeidMatchJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)
-    store = Location.find_by(number: nsn.to_i)
+    store = Organization::Location.find_by(number: nsn.to_i)
     return unless store
 
     # data can be a String or an Array of hashes (depending on how it's passed from Router)
@@ -29,7 +29,7 @@ class Datapass::GeidMatchJob < ApplicationJob
       ssn = record['SSN']
       next if geid.blank? || ssn.blank?
 
-      geid_match = HrSsn.find_or_initialize_by(
+      geid_match = Datapass::HrSsn.find_or_initialize_by(
         organization_id: store.organization_id,
         geid: geid
       )

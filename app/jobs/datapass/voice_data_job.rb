@@ -4,7 +4,7 @@ class VoiceDataJob < ApplicationJob
   queue_as :default
 
   def perform(data, nsn, timestamp)
-    store = Location.find_by(number: nsn.to_i)
+    store = Organization::Location.find_by(number: nsn.to_i)
     return unless store
 
     CSV.parse(data, headers: true) do |row|

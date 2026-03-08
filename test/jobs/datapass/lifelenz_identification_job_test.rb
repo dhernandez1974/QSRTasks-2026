@@ -3,7 +3,7 @@ require "test_helper"
 class Datapass::LifelenzIdentificationJobTest < ActiveJob::TestCase
   setup do
     @organization = organizations(:one)
-    @location = locations(:one)
+    @location = organization_locations(:one)
     @location.update!(number: "1480") # Ensure the number matches the sample filename
     @nsn = "0001480"
     @timestamp = "20260307120000"

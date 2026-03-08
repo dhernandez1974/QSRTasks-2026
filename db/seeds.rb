@@ -30,7 +30,7 @@ end
 stagg = Organization.find_by(eid: 'ef002032')
 puts "Creating Locations"
 
-Location.find_or_create_by!(number: 1480) do |loc|
+Organization::Location.find_or_create_by!(number: 1480) do |loc|
   loc.name = 'South Laredo'
   loc.street = '1330 S. Laredo St'
   loc.city = 'San Antonio'
@@ -45,7 +45,7 @@ Location.find_or_create_by!(number: 1480) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 1703) do |loc|
+Organization::Location.find_or_create_by!(number: 1703) do |loc|
   loc.name = 'SW Military'
   loc.street = '2135 SW Military'
   loc.city = 'San Antonio'
@@ -60,7 +60,7 @@ Location.find_or_create_by!(number: 1703) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 1725) do |loc|
+Organization::Location.find_or_create_by!(number: 1725) do |loc|
   loc.name = 'San Pedro'
   loc.street = '6967 San Pedro'
   loc.city = 'San Antonio'
@@ -75,7 +75,7 @@ Location.find_or_create_by!(number: 1725) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 2962) do |loc|
+Organization::Location.find_or_create_by!(number: 2962) do |loc|
   loc.name = 'West Commerce'
   loc.street = '4422 W. Commerce Street'
   loc.city = 'San Antonio'
@@ -90,7 +90,7 @@ Location.find_or_create_by!(number: 2962) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 3348) do |loc|
+Organization::Location.find_or_create_by!(number: 3348) do |loc|
   loc.name = 'Southcross'
   loc.street = '2402 E. Southcross Blvd'
   loc.city = 'San Antonio'
@@ -105,7 +105,7 @@ Location.find_or_create_by!(number: 3348) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 3447) do |loc|
+Organization::Location.find_or_create_by!(number: 3447) do |loc|
   loc.name = 'Wurzbach'
   loc.street = '9600 I-10 NW'
   loc.city = 'San Antonio'
@@ -120,7 +120,7 @@ Location.find_or_create_by!(number: 3447) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 5166) do |loc|
+Organization::Location.find_or_create_by!(number: 5166) do |loc|
   loc.name = 'WW White'
   loc.street = '102 S WW White Rd'
   loc.city = 'San Antonio'
@@ -135,7 +135,7 @@ Location.find_or_create_by!(number: 5166) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 5623) do |loc|
+Organization::Location.find_or_create_by!(number: 5623) do |loc|
   loc.name = 'Roosevelt'
   loc.street = '3502 SW Military Drive'
   loc.city = 'San Antonio'
@@ -150,7 +150,7 @@ Location.find_or_create_by!(number: 5623) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 5984) do |loc|
+Organization::Location.find_or_create_by!(number: 5984) do |loc|
   loc.name = 'Walters'
   loc.street = '100 Walters'
   loc.city = 'San Antonio'
@@ -165,7 +165,7 @@ Location.find_or_create_by!(number: 5984) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 6661) do |loc|
+Organization::Location.find_or_create_by!(number: 6661) do |loc|
   loc.name = 'Hill Country'
   loc.street = '15715 San Pedro'
   loc.city = 'San Antonio'
@@ -180,7 +180,7 @@ Location.find_or_create_by!(number: 6661) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 7091) do |loc|
+Organization::Location.find_or_create_by!(number: 7091) do |loc|
   loc.name = 'West Houston'
   loc.street = '703 West Houston'
   loc.city = 'San Antonio'
@@ -195,7 +195,7 @@ Location.find_or_create_by!(number: 7091) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 7850) do |loc|
+Organization::Location.find_or_create_by!(number: 7850) do |loc|
   loc.name = 'Med Center'
   loc.street = '7267 Wurzbach'
   loc.city = 'San Antonio'
@@ -210,7 +210,7 @@ Location.find_or_create_by!(number: 7850) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 10271) do |loc|
+Organization::Location.find_or_create_by!(number: 10271) do |loc|
   loc.name = 'New Braunfels'
   loc.street = '1000 New Braunfels'
   loc.city = 'San Antonio'
@@ -225,7 +225,7 @@ Location.find_or_create_by!(number: 10271) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 10586) do |loc|
+Organization::Location.find_or_create_by!(number: 10586) do |loc|
   loc.name = 'Vance Jackson'
   loc.street = '4331 vance Jackson'
   loc.city = 'San Antonio'
@@ -240,7 +240,7 @@ Location.find_or_create_by!(number: 10586) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 10675) do |loc|
+Organization::Location.find_or_create_by!(number: 10675) do |loc|
   loc.name = 'Guilbeau'
   loc.street = '7663 Guilbeau Rd'
   loc.city = 'San Antonio'
@@ -255,7 +255,7 @@ Location.find_or_create_by!(number: 10675) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 10999) do |loc|
+Organization::Location.find_or_create_by!(number: 10999) do |loc|
   loc.name = 'Pleasanton'
   loc.street = '7663 Guilbeau Rd'
   loc.city = 'Pleasanton'
@@ -270,7 +270,7 @@ Location.find_or_create_by!(number: 10999) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 11966) do |loc|
+Organization::Location.find_or_create_by!(number: 11966) do |loc|
   loc.name = 'Schertz'
   loc.street = '1111 Schertz'
   loc.city = 'Schertz'
@@ -285,7 +285,7 @@ Location.find_or_create_by!(number: 11966) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 12673) do |loc|
+Organization::Location.find_or_create_by!(number: 12673) do |loc|
   loc.name = 'DeZavala'
   loc.street = '5235 DeZavala'
   loc.city = 'San Antonio'
@@ -300,7 +300,7 @@ Location.find_or_create_by!(number: 12673) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 13364) do |loc|
+Organization::Location.find_or_create_by!(number: 13364) do |loc|
   loc.name = 'Zarzamora'
   loc.street = '826 S. Zarzamora'
   loc.city = 'San Antonio'
@@ -315,7 +315,7 @@ Location.find_or_create_by!(number: 13364) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 14073) do |loc|
+Organization::Location.find_or_create_by!(number: 14073) do |loc|
   loc.name = 'Broadway'
   loc.street = '8631 Broadway'
   loc.city = 'San Antonio'
@@ -330,7 +330,7 @@ Location.find_or_create_by!(number: 14073) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 17726) do |loc|
+Organization::Location.find_or_create_by!(number: 17726) do |loc|
   loc.name = 'Rigsby'
   loc.street = '5304 Rigsby'
   loc.city = 'San Antonio'
@@ -345,7 +345,7 @@ Location.find_or_create_by!(number: 17726) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 19116) do |loc|
+Organization::Location.find_or_create_by!(number: 19116) do |loc|
   loc.name = 'Babcock & Prue'
   loc.street = '6370 Babcock'
   loc.city = 'San Antonio'
@@ -360,7 +360,7 @@ Location.find_or_create_by!(number: 19116) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 19174) do |loc|
+Organization::Location.find_or_create_by!(number: 19174) do |loc|
   loc.name = 'Foster & 78'
   loc.street = '777 Foster'
   loc.city = 'Converse'
@@ -375,7 +375,7 @@ Location.find_or_create_by!(number: 19174) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 22796) do |loc|
+Organization::Location.find_or_create_by!(number: 22796) do |loc|
   loc.name = "O'Conner"
   loc.street = '11710 I-35 North'
   loc.city = 'San Antonio'
@@ -390,7 +390,7 @@ Location.find_or_create_by!(number: 22796) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 23005) do |loc|
+Organization::Location.find_or_create_by!(number: 23005) do |loc|
   loc.name = 'Floresville'
   loc.street = '530 Tenth Street'
   loc.city = 'Floresville'
@@ -405,7 +405,7 @@ Location.find_or_create_by!(number: 23005) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 24388) do |loc|
+Organization::Location.find_or_create_by!(number: 24388) do |loc|
   loc.name = 'Converse'
   loc.street = '9151 FM 78'
   loc.city = 'Converse'
@@ -420,7 +420,7 @@ Location.find_or_create_by!(number: 24388) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 26150) do |loc|
+Organization::Location.find_or_create_by!(number: 26150) do |loc|
   loc.name = 'Stonecroft'
   loc.street = '11611 Bandera Road'
   loc.city = 'San Antonio'
@@ -435,7 +435,7 @@ Location.find_or_create_by!(number: 26150) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 28656) do |loc|
+Organization::Location.find_or_create_by!(number: 28656) do |loc|
   loc.name = 'Ralph Fair'
   loc.street = '25200 I-10 West Lot 2'
   loc.city = 'San Antonio'
@@ -450,7 +450,7 @@ Location.find_or_create_by!(number: 28656) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 30464) do |loc|
+Organization::Location.find_or_create_by!(number: 30464) do |loc|
   loc.name = '1604/281 STO'
   loc.street = '7663 Guilbeau Rd'
   loc.city = 'San Antonio'
@@ -465,7 +465,7 @@ Location.find_or_create_by!(number: 30464) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 31024) do |loc|
+Organization::Location.find_or_create_by!(number: 31024) do |loc|
   loc.name = 'SW Military WM'
   loc.street = '7663 Guilbeau Rd'
   loc.city = 'San Antonio'
@@ -480,7 +480,7 @@ Location.find_or_create_by!(number: 31024) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 32872) do |loc|
+Organization::Location.find_or_create_by!(number: 32872) do |loc|
   loc.name = 'Somerset'
   loc.street = '3231 SW Military'
   loc.city = 'San Antonio'
@@ -495,7 +495,7 @@ Location.find_or_create_by!(number: 32872) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 34798) do |loc|
+Organization::Location.find_or_create_by!(number: 34798) do |loc|
   loc.name = 'The Rim'
   loc.street = '18503 IH 10 W'
   loc.city = 'San Antonio'
@@ -510,7 +510,7 @@ Location.find_or_create_by!(number: 34798) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 35416) do |loc|
+Organization::Location.find_or_create_by!(number: 35416) do |loc|
   loc.name = 'Comfort'
   loc.street = '43 US Highway 87 Ste M'
   loc.city = 'Comfort'
@@ -525,7 +525,7 @@ Location.find_or_create_by!(number: 35416) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 38841) do |loc|
+Organization::Location.find_or_create_by!(number: 38841) do |loc|
   loc.name = 'Palo Alto'
   loc.street = '111 Palo Alto'
   loc.city = 'San Antonio'
@@ -540,7 +540,7 @@ Location.find_or_create_by!(number: 38841) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 39510) do |loc|
+Organization::Location.find_or_create_by!(number: 39510) do |loc|
   loc.name = 'Foster Rd'
   loc.street = '1852 North Foster Road'
   loc.city = 'San Antonio'
@@ -555,7 +555,7 @@ Location.find_or_create_by!(number: 39510) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 39616) do |loc|
+Organization::Location.find_or_create_by!(number: 39616) do |loc|
   loc.name = '37 South'
   loc.street = '20303 I-37 South'
   loc.city = 'San Antonio'
@@ -570,7 +570,7 @@ Location.find_or_create_by!(number: 39616) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 43197) do |loc|
+Organization::Location.find_or_create_by!(number: 43197) do |loc|
   loc.name = 'Binz Engleman'
   loc.street = '5439 Fm 1516 North'
   loc.city = 'Converse'
@@ -585,7 +585,7 @@ Location.find_or_create_by!(number: 43197) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 43112) do |loc|
+Organization::Location.find_or_create_by!(number: 43112) do |loc|
   loc.name = 'Tarpon Road'
   loc.street = '28409 I-10 West'
   loc.city = 'Boerne'
@@ -600,7 +600,7 @@ Location.find_or_create_by!(number: 43112) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 39958) do |loc|
+Organization::Location.find_or_create_by!(number: 39958) do |loc|
   loc.name = 'La Vernia'
   loc.street = '111 La Vernia'
   loc.city = 'La Vernia'
@@ -615,7 +615,7 @@ Location.find_or_create_by!(number: 39958) do |loc|
   loc.organization_id = stagg.id
 end
 
-Location.find_or_create_by!(number: 9) do |loc|
+Organization::Location.find_or_create_by!(number: 9) do |loc|
   loc.name = 'Office'
   loc.street = '8507 Speedway Drive'
   loc.city = 'San Antonio'

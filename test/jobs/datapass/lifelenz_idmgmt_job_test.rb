@@ -3,7 +3,7 @@ require "test_helper"
 class Datapass::LifelenzIdmgmtJobTest < ActiveJob::TestCase
   setup do
     @organization = organizations(:one)
-    @location = locations(:one)
+    @location = organization_locations(:one)
     @location.update!(number: "1480") # Set matching NSN from sample file
     
     # If the file in tmp is missing, skip the tests

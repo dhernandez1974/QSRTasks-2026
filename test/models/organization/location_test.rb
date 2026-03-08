@@ -1,8 +1,8 @@
 require "test_helper"
 
-class LocationTest < ActiveSupport::TestCase
+class Organization::LocationTest < ActiveSupport::TestCase
   setup do
-    @location = locations(:one)
+    @location = organization_locations(:one)
     @user = users(:one)
   end
 

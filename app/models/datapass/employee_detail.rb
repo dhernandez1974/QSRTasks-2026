@@ -1,6 +1,7 @@
 class Datapass::EmployeeDetail < ApplicationRecord
+  self.table_name = "datapass_employee_details"
   belongs_to :organization
-  belongs_to :location
+  belongs_to :location, class_name: "Organization::Location"
 
   encrypts :payroll_id, :eid, :geid, :email, :first_name, :last_name, :primary_phone, :birth_date, deterministic: true
 

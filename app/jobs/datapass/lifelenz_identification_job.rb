@@ -6,7 +6,7 @@ class Datapass::LifelenzIdentificationJob < ApplicationJob
     payload = parse_payload(data)
     return if payload.nil?
 
-    location = Location.find_by(number: nsn.to_i.to_s)
+    location = Organization::Location.find_by(number: nsn.to_i.to_s)
     if location.nil?
       puts "Location not found for NSN: #{nsn}"
       return

@@ -5,7 +5,7 @@ class UniquenessTest < ActiveSupport::TestCase
     @org = organizations(:one)
     @user = users(:one)
     @admin = admins(:one)
-    @location = locations(:one)
+    @location = organization_locations(:one)
   end
 
   test "user email must be unique" do

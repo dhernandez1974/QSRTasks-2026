@@ -3,7 +3,7 @@ require "test_helper"
 class Datapass::MchireNewHireJobTest < ActiveJob::TestCase
   setup do
     @organization = organizations(:one)
-    @location = locations(:one)
+    @location = organization_locations(:one)
     @location.update!(number: "1480")
 
     @sample_file = Rails.root.join('tmp/0001480-Paradox-McHire-HIRE-New.json')

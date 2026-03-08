@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jtc: MyString
+  job_title: MyString
+  matching_position: MyString
+
+two:
+  jtc: MyString
+  job_title: MyString
+  matching_position: MyString

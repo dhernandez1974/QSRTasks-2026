@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_08_052556) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_08_152323) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -173,6 +173,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_052556) do
     t.index ["organization_id"], name: "index_datapass_idmgmts_on_organization_id"
   end
 
+  create_table "datapass_jtc_positions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "job_title"
+    t.string "jtc"
+    t.string "matching_position"
+    t.datetime "updated_at", null: false
+  end
+
   create_table "datapass_new_hires", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "a"
     t.date "bdt"
@@ -257,6 +265,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_052556) do
     t.index ["updated_by_id"], name: "index_organization_departments_on_updated_by_id"
   end
 
+  create_table "organization_positions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "authorization_level", default: "Position"
+    t.jsonb "authorized", default: {}
+    t.datetime "created_at", null: false
+    t.uuid "department_id", null: false
+    t.string "job_class", default: "Crew"
+    t.string "job_tier", default: "Self"
+    t.string "jtc"
+    t.boolean "maintenance_lead", default: false
+    t.boolean "maintenance_team", default: false
+    t.string "name", null: false
+    t.uuid "organization_id", null: false
+    t.string "rate_type", default: "Hourly"
+    t.uuid "reports_to_id", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "updated_by_id", null: false
+    t.index ["department_id"], name: "index_organization_positions_on_department_id"
+    t.index ["organization_id"], name: "index_organization_positions_on_organization_id"
+    t.index ["reports_to_id"], name: "index_organization_positions_on_reports_to_id"
+    t.index ["updated_by_id"], name: "index_organization_positions_on_updated_by_id"
+  end
+
   create_table "organizations", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "city", null: false
     t.datetime "created_at", null: false
@@ -324,6 +354,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_052556) do
   add_foreign_key "locations", "organizations"
   add_foreign_key "organization_departments", "organizations"
   add_foreign_key "organization_departments", "users", column: "updated_by_id"
+  add_foreign_key "organization_positions", "organization_departments", column: "department_id"
+  add_foreign_key "organization_positions", "organizations"
+  add_foreign_key "organization_positions", "users", column: "reports_to_id"
+  add_foreign_key "organization_positions", "users", column: "updated_by_id"
   add_foreign_key "users", "locations"
   add_foreign_key "users", "organizations"
 end

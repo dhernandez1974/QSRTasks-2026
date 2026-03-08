@@ -1,10 +1,10 @@
-class LocationsController < ApplicationController
+class Organization::LocationsController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_location, only: %i[ show edit update destroy ]
 
   # GET /locations or /locations.json
   def index
-    @locations = Location.all
+    @locations = Organization::Location.all
   end
 
   # GET /locations/1 or /locations/1.json
@@ -13,7 +13,7 @@ class LocationsController < ApplicationController
 
   # GET /locations/new
   def new
-    @location = Location.new
+    @location = Organization::Location.new
   end
 
   # GET /locations/1/edit
@@ -22,11 +22,11 @@ class LocationsController < ApplicationController
 
   # POST /locations or /locations.json
   def create
-    @location = Location.new(location_params)
+    @location = Organization::Location.new(location_params)
 
     respond_to do |format|
       if @location.save
-        format.html { redirect_to @location, notice: "Location was successfully created." }
+        format.html { redirect_to organization_location_path(@location), notice: "Location was successfully created." }
         format.json { render :show, status: :created, location: @location }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class LocationsController < ApplicationController
   def update
     respond_to do |format|
       if @location.update(location_params)
-        format.html { redirect_to @location, notice: "Location was successfully updated.", status: :see_other }
+        format.html { redirect_to organization_location_path(@location), notice: "Location was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @location }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class LocationsController < ApplicationController
     @location.destroy!
 
     respond_to do |format|
-      format.html { redirect_to locations_path, notice: "Location was successfully destroyed.", status: :see_other }
+      format.html { redirect_to organization_locations_path, notice: "Location was successfully destroyed.", status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -61,7 +61,7 @@ class LocationsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_location
-      @location = Location.find(params.expect(:id))
+      @location = Organization::Location.find(params.expect(:id))
     end
 
     # Only allow a list of trusted parameters through.

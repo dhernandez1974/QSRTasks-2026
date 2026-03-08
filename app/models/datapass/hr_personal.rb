@@ -1,6 +1,7 @@
 class Datapass::HrPersonal < ApplicationRecord
+  self.table_name = "datapass_hr_personals"
   belongs_to :organization
-  belongs_to :location
+  belongs_to :location, class_name: "Organization::Location"
 
   encrypts :payroll_id, :geid, :email_address, :first_name, :last_name, :cell_phone_number, deterministic: true
 

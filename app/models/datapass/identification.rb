@@ -1,6 +1,7 @@
 class Datapass::Identification < ApplicationRecord
+  self.table_name = "datapass_identifications"
   belongs_to :organization
-  belongs_to :location
+  belongs_to :location, class_name: "Organization::Location"
 
   encrypts :geid, :email_address, :ssn, :first_name, :last_name, deterministic: true
 

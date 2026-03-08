@@ -18,7 +18,7 @@ class NormalizationTest < ActiveSupport::TestCase
 
   test "location normalization" do
     org = organizations(:one)
-    loc = Location.create!(
+    loc = Organization::Location.create!(
       name: "Test Location",
       number: "101",
       street: "St", city: "City", state: "ST", zip: "12345",
@@ -62,7 +62,7 @@ class NormalizationTest < ActiveSupport::TestCase
 
   test "hr_ssn normalization and association" do
     org = organizations(:one)
-    hr_ssn = HrSsn.create!(
+    hr_ssn = Datapass::HrSsn.create!(
       geid: "GEID-123",
       ssn: "123456789",
       organization: org

@@ -5,7 +5,7 @@ class Datapass::EmployeeDetailsJob < ApplicationJob
     payload = data.is_a?(String) ? JSON.parse(data) : data
     return if payload.nil?
 
-    location = Location.find_by(number: nsn.to_i.to_s)
+    location = Organization::Location.find_by(number: nsn.to_i.to_s)
     if location.nil?
       puts "Location not found for NSN: #{nsn}"
       return

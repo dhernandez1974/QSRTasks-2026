@@ -1,4 +1,6 @@
-class HrSsn < ApplicationRecord
+class Datapass::HrSsn < ApplicationRecord
+  self.table_name = "hr_ssns"
+
   belongs_to :organization
 
   encrypts :geid, :ssn, deterministic: true
