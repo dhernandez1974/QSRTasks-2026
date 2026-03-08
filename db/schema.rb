@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_08_001644) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_08_051643) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -173,6 +173,39 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_001644) do
     t.index ["organization_id"], name: "index_datapass_idmgmts_on_organization_id"
   end
 
+  create_table "datapass_new_hires", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "a"
+    t.date "bdt"
+    t.string "c"
+    t.datetime "created_at", null: false
+    t.date "created_at_source"
+    t.string "ds"
+    t.string "e"
+    t.string "ea_a"
+    t.string "ea_dt"
+    t.string "fn"
+    t.string "hs"
+    t.string "job_title"
+    t.string "jtc"
+    t.string "ln"
+    t.uuid "location_id", null: false
+    t.string "mchire_location"
+    t.string "mn"
+    t.string "nh_id"
+    t.string "nm"
+    t.string "oid"
+    t.uuid "organization_id", null: false
+    t.string "p"
+    t.date "poll_date"
+    t.string "r"
+    t.string "ssn"
+    t.string "st"
+    t.datetime "updated_at", null: false
+    t.string "z"
+    t.index ["location_id"], name: "index_datapass_new_hires_on_location_id"
+    t.index ["organization_id"], name: "index_datapass_new_hires_on_organization_id"
+  end
+
   create_table "hr_ssns", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "geid", null: false
@@ -231,26 +264,32 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_001644) do
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.boolean "admin"
+    t.date "birth_date"
     t.datetime "confirmation_sent_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "created_at", null: false
     t.datetime "current_sign_in_at"
     t.string "current_sign_in_ip"
+    t.string "eid"
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.integer "failed_attempts", default: 0, null: false
     t.string "first_name"
+    t.string "geid"
+    t.date "hire_date"
     t.string "last_name"
     t.datetime "last_sign_in_at"
     t.string "last_sign_in_ip"
     t.uuid "location_id"
     t.datetime "locked_at"
     t.uuid "organization_id"
+    t.string "payroll_id"
     t.string "phone_number"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.integer "sign_in_count", default: 0, null: false
+    t.string "social"
     t.string "unconfirmed_email"
     t.string "unlock_token"
     t.datetime "updated_at", null: false
@@ -269,6 +308,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_001644) do
   add_foreign_key "datapass_identifications", "organizations"
   add_foreign_key "datapass_idmgmts", "locations"
   add_foreign_key "datapass_idmgmts", "organizations"
+  add_foreign_key "datapass_new_hires", "locations"
+  add_foreign_key "datapass_new_hires", "organizations"
   add_foreign_key "hr_ssns", "organizations"
   add_foreign_key "locations", "organizations"
   add_foreign_key "users", "locations"

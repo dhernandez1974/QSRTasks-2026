@@ -73,7 +73,8 @@ module Datapass
 
       when 'eR-TIME-DAR'
 
-      when 'McHIRE-HIRE-NEW'
+      when 'McHire-HIRE-New'
+        Datapass::MchireNewHireJob.perform_later(payload_file, nsn, timestamp)
 
       when 'McHIRE-ApplicantData'
 

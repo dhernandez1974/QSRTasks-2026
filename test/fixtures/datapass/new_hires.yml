@@ -1,0 +1,57 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  location: one
+  mchire_location: MyString
+  poll_date: 2026-03-07
+  created_at_source: 2026-03-07
+  ds: MyString
+  oid: MyString
+  a: MyString
+  bdt: 2026-03-07
+  c: MyString
+  e: MyString
+  fn: MyString
+  mn: MyString
+  hs: MyString
+  nh_id: MyString
+  ln: MyString
+  p: MyString
+  st: MyString
+  z: MyString
+  jtc: MyString
+  job_title: MyString
+  r: MyString
+  ea_a: MyString
+  ea_dt: MyString
+  nm: MyString
+  ssn: MyString
+
+two:
+  organization: two
+  location: two
+  mchire_location: MyString
+  poll_date: 2026-03-07
+  created_at_source: 2026-03-07
+  ds: MyString
+  oid: MyString
+  a: MyString
+  bdt: 2026-03-07
+  c: MyString
+  e: MyString
+  fn: MyString
+  mn: MyString
+  hs: MyString
+  nh_id: MyString
+  ln: MyString
+  p: MyString
+  st: MyString
+  z: MyString
+  jtc: MyString
+  job_title: MyString
+  r: MyString
+  ea_a: MyString
+  ea_dt: MyString
+  nm: MyString
+  ssn: MyString

@@ -79,6 +79,36 @@
         <%= u.label :password_confirmation, style: "display: block" %>
         <%= u.password_field :password_confirmation %>
       </div>
+
+      <div>
+        <%= u.label :birth_date, style: "display: block" %>
+        <%= u.date_field :birth_date %>
+      </div>
+
+      <div>
+        <%= u.label :social, style: "display: block" %>
+        <%= u.text_field :social %>
+      </div>
+
+      <div>
+        <%= u.label :eid, style: "display: block" %>
+        <%= u.text_field :eid %>
+      </div>
+
+      <div>
+        <%= u.label :geid, style: "display: block" %>
+        <%= u.text_field :geid %>
+      </div>
+
+      <div>
+        <%= u.label :payroll_id, style: "display: block" %>
+        <%= u.text_field :payroll_id %>
+      </div>
+
+      <div>
+        <%= u.label :hire_date, style: "display: block" %>
+        <%= u.date_field :hire_date %>
+      </div>
     <% end %>
   </fieldset>
 
