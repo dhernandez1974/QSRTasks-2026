@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_07_225559) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_08_001644) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -80,6 +80,46 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_07_225559) do
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_datapass_employee_details_on_location_id"
     t.index ["organization_id"], name: "index_datapass_employee_details_on_organization_id"
+  end
+
+  create_table "datapass_hr_personals", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "apt_number"
+    t.string "cell_phone_number"
+    t.string "city"
+    t.datetime "created_at", null: false
+    t.date "date_of_birth"
+    t.string "disabled_veteran"
+    t.string "email_address"
+    t.string "emergency_contact_cell_phone_number"
+    t.string "emergency_contact_first_name"
+    t.string "emergency_contact_home_phone_number"
+    t.string "emergency_contact_last_name"
+    t.string "emergency_contact_work_phone_number"
+    t.string "first_name"
+    t.string "geid"
+    t.string "gender"
+    t.string "home_phone_number"
+    t.string "last_name"
+    t.uuid "location_id", null: false
+    t.string "middle_initial"
+    t.string "military_vateran_status"
+    t.string "national_origin"
+    t.string "nickname"
+    t.uuid "organization_id", null: false
+    t.string "payroll_id"
+    t.string "personal_marital_status"
+    t.string "primary_time_card"
+    t.string "secondary_time_card"
+    t.string "state"
+    t.string "street_address"
+    t.date "student_permit_expiration_date"
+    t.string "student_status"
+    t.string "unique_id"
+    t.datetime "updated_at", null: false
+    t.string "veteran_type"
+    t.string "zip_code"
+    t.index ["location_id"], name: "index_datapass_hr_personals_on_location_id"
+    t.index ["organization_id"], name: "index_datapass_hr_personals_on_organization_id"
   end
 
   create_table "datapass_identifications", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -190,6 +230,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_07_225559) do
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.boolean "admin"
     t.datetime "confirmation_sent_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
@@ -222,6 +263,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_07_225559) do
 
   add_foreign_key "datapass_employee_details", "locations"
   add_foreign_key "datapass_employee_details", "organizations"
+  add_foreign_key "datapass_hr_personals", "locations"
+  add_foreign_key "datapass_hr_personals", "organizations"
   add_foreign_key "datapass_identifications", "locations"
   add_foreign_key "datapass_identifications", "organizations"
   add_foreign_key "datapass_idmgmts", "locations"

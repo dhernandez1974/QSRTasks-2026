@@ -45,6 +45,8 @@ module Datapass
       end
 
       case topic
+      when 'LZ-HR-Personal'
+        Datapass::LifelenzPersonalJob.perform_later(payload_file, nsn, timestamp)
       when 'eR-HR-IdMgmtFull'
         IdmgmtJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-HR-IdMgmtFull'

@@ -5,6 +5,7 @@ class Location < ApplicationRecord
   has_many :employee_details, class_name: "Datapass::EmployeeDetail", dependent: :destroy
   has_many :idmgmts, class_name: "Datapass::Idmgmt", dependent: :destroy
   has_many :identifications, class_name: "Datapass::Identification", dependent: :destroy
+  has_many :hr_personals, class_name: "Datapass::HrPersonal", dependent: :destroy
 
   before_save :normalize_attributes
   validates :email, :phone, presence: true, uniqueness: { case_sensitive: false }

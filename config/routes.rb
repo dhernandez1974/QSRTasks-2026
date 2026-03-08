@@ -1,4 +1,10 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  authenticate :admin do
+    mount Sidekiq::Web => "/sidekiq"
+  end
+
   resources :locations
   get "dashboard/admin", as: :admin_dashboard
   get "dashboard/user", as: :user_dashboard
