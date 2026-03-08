@@ -1,3 +1,4 @@
+module Datapass
   class OrganizationUserInfoJob < ApplicationJob
     queue_as :default
 
@@ -17,7 +18,7 @@
       # Build a case-insensitive set of EIDs (include both eid and primary_eid for safety)
       eid_pairs = Organization.where(id: organization_ids).pluck(:eid, :primary_eid)
       if eid_pairs.blank?
-        Rails.logger.warn("BackfillLast7DaysJob: No organizations found for ids=#{organization_ids.inspect}")
+        Rails.logger.warn("OrganizationUserInfoJob: No organizations found for ids=#{organization_ids.inspect}")
         return 0
       end
       eid_set = eid_pairs.flatten.compact.map { |e| e.to_s.downcase }.uniq.to_set
@@ -39,10 +40,11 @@
       cutoff_start = (Time.zone.now.beginning_of_day - (days - 1).days).utc
       cutoff_end   = Time.zone.now.end_of_day.utc
 
-      prefix = "prod/" # matches DatapassWebhookRouter.retrieve_file_from_s3
+      prefix = "prod/" # matches DatapassWebhookRouterJob.retrieve_file_from_s3
 
       continuation_token = nil
       matched = 0
+      webhooks_to_create = []
 
       loop do
         resp = s3.list_objects_v2(bucket: bucket, prefix: prefix, continuation_token: continuation_token)
@@ -57,9 +59,7 @@
           owner_eid = parts[:mcopco_or_eid].to_s.downcase
           next unless eid_set.include?(owner_eid)
 
-          # Create an InboundWebhook record with the expected body format for the router
-          webhook = InboundWebhook.create!(body: { filename: filename }.to_json)
-          DatapassWebhookRouter.perform_later(webhook, "application/json")
+          webhooks_to_create << { body: { filename: filename }.to_json }
           matched += 1
         end
 
@@ -67,7 +67,15 @@
         continuation_token = resp.next_continuation_token
       end
 
-      Rails.logger.info("BackfillLast7DaysJob enqueued router for #{matched} files across topics: #{topics.join(", ")} for org_ids=#{organization_ids.inspect}")
+      if webhooks_to_create.any?
+        created_webhooks = InboundWebhook.insert_all(webhooks_to_create, returning: %w[id])
+        created_webhooks.each do |row|
+          webhook = InboundWebhook.find(row["id"])
+          Datapass::DatapassWebhookRouterJob.perform_later(webhook, "application/json")
+        end
+      end
+
+      Rails.logger.info("OrganizationUserInfoJob enqueued router for #{matched} files across topics: #{topics.join(", ")} for org_ids=#{organization_ids.inspect}")
       matched
     end
 
@@ -98,3 +106,4 @@
       }
     end
   end
+end

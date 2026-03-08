@@ -1,9 +1,21 @@
-<h1>New Organization</h1>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight sm:text-4xl">New Organization</h1>
+    <p class="mt-2 text-lg text-gray-600">Register a new organization and its primary contact person.</p>
+  </div>
 
-<%= render "form", organization: @organization, contact: @contact %>
+  <div class="bg-white shadow-xl rounded-2xl overflow-hidden border border-gray-100">
+    <div class="p-8">
+      <%= render "form", organization: @organization, contact: @contact %>
+    </div>
+  </div>
 
-<br>
-
-<div>
-  <%= link_to "Back to organizations", organizations_path %>
+  <div class="mt-8 flex items-center gap-x-4">
+    <%= link_to organizations_path, class: "inline-flex items-center text-sm font-medium text-brand-accent hover:text-opacity-80 transition-colors" do %>
+      <svg class="mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+      </svg>
+      Back to organizations
+    <% end %>
+  </div>
 </div>

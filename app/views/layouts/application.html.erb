@@ -14,9 +14,10 @@
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
     <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <%= favicon_link_tag 'favicon.ico' %>
+    <%= favicon_link_tag 'favicon-32x32.png', rel: 'icon', type: 'image/png', sizes: '32x32' %>
+    <%= favicon_link_tag 'favicon-16x16.png', rel: 'icon', type: 'image/png', sizes: '16x16' %>
+    <%= favicon_link_tag 'apple-touch-icon.png', rel: 'apple-touch-icon', type: 'image/png', sizes: '180x180' %>
 
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
@@ -27,10 +28,12 @@
     <% if admin_signed_in? %>
       <header class="bg-gray-800 border-b border-gray-700 sticky top-0 z-50">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between h-16 items-center">
+            <div class="flex justify-between h-20 items-center">
             <div class="flex items-center">
-              <div class="flex-shrink-0">
-                <%= link_to "QSRTasks", admin_dashboard_path, class: "text-2xl font-bold text-white" %>
+              <div class="flex-shrink-0 flex items-center">
+                <%= link_to admin_dashboard_path, class: "flex items-center" do %>
+                  <%= image_tag "QSRTasks White logo.png", class: "h-16 w-auto", alt: "QSRTasks" %>
+                <% end %>
               </div>
               <div class="hidden md:ml-6 md:flex md:space-x-8">
                 <div class="relative" data-controller="dropdown">
@@ -71,9 +74,11 @@
     <% else %>
       <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="flex justify-between h-16 items-center">
-            <div class="flex-shrink-0">
-              <%= link_to "QSRTasks", root_path, class: "text-2xl font-bold text-brand-accent" %>
+          <div class="flex justify-between h-20 items-center">
+            <div class="flex-shrink-0 flex items-center">
+              <%= link_to root_path, class: "flex items-center" do %>
+                <%= image_tag "QSRTasks Main Logo.svg", class: "h-16 w-auto", alt: "QSRTasks" %>
+              <% end %>
             </div>
             <div class="hidden md:flex space-x-8">
               <%= link_to "About", public_about_path, class: "text-gray-600 hover:text-brand-accent px-3 py-2 text-sm font-medium" %>
