@@ -15,6 +15,7 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
     geids = collect_geids_by_eids(eids)
     
     geids.each do |geid|
+      next if terminated?(geid)
       user_data = aggregate_user_data(geid)
       create_or_update_user(geid, user_data)
     end
@@ -22,8 +23,18 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
 
   private
 
+  def terminated?(geid)
+    history = Datapass::EmployeeHistory.where(geid: geid).order(created_at: :desc).first
+    return false unless history
+    
+    # A user should be created if the value is nil, null, or "A"
+    # Otherwise they are considered terminated (or not active)
+    ![nil, "", "A"].include?(history.termination_code)
+  end
+
   def collect_geids_by_eids(eids)
     (
+      Datapass::EmployeeHistory.where(organization_id: Organization.where(eid: eids)).pluck(:geid) +
       Datapass::EmployeeDetail.where(eid: eids).pluck(:geid) +
       Datapass::HrPersonal.where(organization_id: Organization.where(eid: eids).select(:id)).pluck(:geid) +
       Datapass::HrSsn.where(organization_id: Organization.where(eid: eids).select(:id)).pluck(:geid) +

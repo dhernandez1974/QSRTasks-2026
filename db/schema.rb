@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_08_152323) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_08_213802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -80,6 +80,27 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_152323) do
     t.datetime "updated_at", null: false
     t.index ["location_id"], name: "index_datapass_employee_details_on_location_id"
     t.index ["organization_id"], name: "index_datapass_employee_details_on_organization_id"
+  end
+
+  create_table "datapass_employee_histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.date "company_service_date"
+    t.datetime "created_at", null: false
+    t.date "follow_up_orientation_date"
+    t.string "geid"
+    t.uuid "location_id", null: false
+    t.uuid "organization_id", null: false
+    t.date "organization_start_date"
+    t.date "orientation_date"
+    t.jsonb "repeating_full_jtc_history"
+    t.date "review_due_date"
+    t.jsonb "store_history"
+    t.string "termination_code"
+    t.date "termination_date"
+    t.date "termination_entry_date"
+    t.string "termination_reason"
+    t.datetime "updated_at", null: false
+    t.index ["location_id"], name: "index_datapass_employee_histories_on_location_id"
+    t.index ["organization_id"], name: "index_datapass_employee_histories_on_organization_id"
   end
 
   create_table "datapass_hr_personals", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -342,6 +363,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_152323) do
 
   add_foreign_key "datapass_employee_details", "locations"
   add_foreign_key "datapass_employee_details", "organizations"
+  add_foreign_key "datapass_employee_histories", "locations"
+  add_foreign_key "datapass_employee_histories", "organizations"
   add_foreign_key "datapass_hr_personals", "locations"
   add_foreign_key "datapass_hr_personals", "organizations"
   add_foreign_key "datapass_identifications", "locations"

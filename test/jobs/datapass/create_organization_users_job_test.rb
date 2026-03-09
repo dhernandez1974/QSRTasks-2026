@@ -5,12 +5,14 @@ class Datapass::CreateOrganizationUsersJobTest < ActiveJob::TestCase
     @organization = organizations(:one)
     @organization.update!(eid: "EID123")
     
-    # Update fixtures to NOT match our test EID to avoid interference
-    Datapass::EmployeeDetail.where(organization_id: @organization.id).update_all(eid: "OTHER")
-    Datapass::HrPersonal.where(organization_id: @organization.id).delete_all
-    Datapass::HrSsn.where(organization_id: @organization.id).delete_all
-    Datapass::Idmgmt.where(organization_id: @organization.id).delete_all
-    Datapass::Identification.where(organization_id: @organization.id).delete_all
+    # Clean up to ensure a predictable state
+    User.delete_all
+    Datapass::EmployeeDetail.delete_all
+    Datapass::HrPersonal.delete_all
+    Datapass::HrSsn.delete_all
+    Datapass::Idmgmt.delete_all
+    Datapass::Identification.delete_all
+    Datapass::EmployeeHistory.delete_all
 
     @location = organization_locations(:one)
     @geid = "unique_geid_123"

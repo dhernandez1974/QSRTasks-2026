@@ -17,36 +17,48 @@ class Organization < ApplicationRecord
   end
 
   def set_default_departments
-    ops = Department.create(name: "Operations", organization: self)
-    admin = Department.create(name: "Administration", organization: self)
-    maint = Department.create(name: "Maintenance", organization: self)
+    user = User.find_by(organization_id: self.id)
+
+    ops = Department.create(name: "Operations", organization: self, updated_by: user)
+    admin = Department.create(name: "Administration", organization: self, updated_by: user)
+    maint = Department.create(name: "Maintenance", organization: self, updated_by: user)
+    
     owner = Position.create(department: admin, organization: self, name: "Owner", rate_type: "Salary",
       authorized: Position::AUTHORIZED, authorization_level: "Organization", job_tier: "Staff", job_class: "Staff",
-      maintenance_team: true, maintenance_lead: false)
+      maintenance_team: true, maintenance_lead: false, reports_to_id: Admin.first&.id,
+      updated_by: user)
     director = Position.create(department: admin, organization: self, name: "Director of Operations", rate_type:
       "Salary", reports_to: owner.id, authorized: Position::AUTHORIZED, authorization_level: "Organization",
-      job_tier: "Staff", job_class: "Staff", maintenance_team: true, maintenance_lead: false)
+      job_tier: "Staff", job_class: "Staff", maintenance_team: true, maintenance_lead: false,
+      updated_by: user)
     om = Position.create(department: ops, organization: self, name: "Operations Manager", rate_type: "Salary",
       reports_to: director.id, authorized: Position::AUTHORIZED, authorization_level: "Department",
-      job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false)
+      job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false,
+      updated_by: user)
     sup = Position.create(department: ops, organization: self, name: "Supervisor", rate_type: "Salary",
       reports_to: om.id, authorized: Position::AUTHORIZED, authorization_level: "Department",
-      job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false)
+      job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false,
+      updated_by: user)
     gm = Position.create(department: ops, organization: self, name: "General Manager", rate_type: "Salary",
       reports_to: sup.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
-      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false)
+      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
+      updated_by: user)
     Position.create(department: ops, organization: self, name: "Department Manager", rate_type: "Hourly",
       reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
-      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false)
+      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
+      updated_by: user)
     Position.create(department: ops, organization: self, name: "Manager", rate_type: "Hourly",
       reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
-      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false)
+      job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
+      updated_by: user)
     Position.create(department: ops, organization: self, name: "Crew", rate_type: "Hourly",
       reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
-      job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false)
+      job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false,
+      updated_by: user)
     Position.create(department: ops, organization: self, name: "Store Maintenance", rate_type: "Hourly",
       reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
-      job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false)
+      job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false,
+      updated_by: user)
   end
 
   # def set_default_vendor

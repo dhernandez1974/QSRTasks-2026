@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  location: one
+  organization_start_date: 2026-03-08
+  termination_date: 2026-03-08
+  orientation_date: 2026-03-08
+  company_service_date: 2026-03-08
+  review_due_date: 2026-03-08
+  follow_up_orientation_date: 2026-03-08
+  termination_entry_date: 2026-03-08
+  termination_reason: MyString
+  termination_code: MyString
+  geid: MyString
+  store_history: 
+  repeating_full_jtc_history: 
+
+two:
+  organization: two
+  location: two
+  organization_start_date: 2026-03-08
+  termination_date: 2026-03-08
+  orientation_date: 2026-03-08
+  company_service_date: 2026-03-08
+  review_due_date: 2026-03-08
+  follow_up_orientation_date: 2026-03-08
+  termination_entry_date: 2026-03-08
+  termination_reason: MyString
+  termination_code: MyString
+  geid: MyString
+  store_history: 
+  repeating_full_jtc_history: 

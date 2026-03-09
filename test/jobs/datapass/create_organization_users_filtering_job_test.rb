@@ -2,26 +2,22 @@ require "test_helper"
 
 class Datapass::CreateOrganizationUsersFilteringJobTest < ActiveJob::TestCase
   setup do
+    # Update organizations to match our test EIDs
     @primary_org = organizations(:one)
     @primary_org.update!(eid: "primary_eid", primary_operator: true)
     
     @secondary_org = organizations(:two)
     @secondary_org.update!(eid: "secondary_eid", primary_eid: "primary_eid", primary_operator: false)
     
-    @unrelated_org = Organization.create!(
-      name: "Unrelated Org",
-      phone: "999-999-9999",
-      eid: "unrelated_eid",
-      street: "123 Main St",
-      city: "Anytown",
-      state: "CA",
-      zip: "12345",
-      primary_operator: false
-    )
+    # Clean up GEID-related tables to avoid noise
+    User.delete_all
+    Datapass::EmployeeDetail.delete_all
+    Datapass::EmployeeHistory.delete_all
+    Datapass::HrPersonal.delete_all
+    Datapass::HrSsn.delete_all
+    Datapass::Idmgmt.delete_all
+    Datapass::Identification.delete_all
     
-    # Create a contact for @unrelated_org because Organization requires it in some contexts or validations (though not explicitly in model)
-    User.create!(email: "contact@unrelated.com", password: "password", organization: @unrelated_org)
-
     @location = organization_locations(:one)
   end
 
@@ -33,6 +29,8 @@ class Datapass::CreateOrganizationUsersFilteringJobTest < ActiveJob::TestCase
     Datapass::EmployeeDetail.create!(geid: "geid_secondary", eid: "secondary_eid", organization: @secondary_org, location: @location)
     
     # GEID for unrelated org
+    @unrelated_org = organizations(:one).dup
+    @unrelated_org.update!(name: "Unrelated Org", eid: "unrelated_eid", primary_operator: false)
     Datapass::EmployeeDetail.create!(geid: "geid_unrelated", eid: "unrelated_eid", organization: @unrelated_org, location: @location)
 
     # Job for primary org
@@ -51,6 +49,8 @@ class Datapass::CreateOrganizationUsersFilteringJobTest < ActiveJob::TestCase
     Datapass::EmployeeDetail.create!(geid: "geid_pri_match", eid: "primary_eid", organization: @primary_org, location: @location)
     
     # GEID for unrelated org
+    @unrelated_org = organizations(:one).dup
+    @unrelated_org.update!(name: "Other Org", eid: "unrelated_eid", primary_operator: false)
     Datapass::EmployeeDetail.create!(geid: "geid_other", eid: "unrelated_eid", organization: @unrelated_org, location: @location)
 
     # Job for secondary org
