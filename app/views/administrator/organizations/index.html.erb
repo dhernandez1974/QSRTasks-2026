@@ -20,13 +20,13 @@
           <td><%= organization.phone %></td>
           <td><%= organization.eid %></td>
           <td><%= organization.contact.email %></td>
-          <td><%= link_to "Show", organization %></td>
-          <td><%= link_to "Edit", edit_organization_path(organization) %></td>
-          <td><%= button_to "Destroy", organization, method: :delete, data: { confirm: "Are you sure?" } %></td>
+          <td><%= link_to "Show", administrator_organization_path(organization) %></td>
+          <td><%= link_to "Edit", edit_administrator_organization_path(organization) %></td>
+          <td><%= button_to "Destroy", administrator_organization_path(organization), method: :delete, data: { confirm: "Are you sure?" } %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
 
-<%= link_to "New organization", new_organization_path %>
+<%= link_to "New organization", new_administrator_organization_path %>

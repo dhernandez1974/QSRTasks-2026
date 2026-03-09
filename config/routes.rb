@@ -4,18 +4,15 @@ Rails.application.routes.draw do
   namespace :organization do
     resources :departments
     resources :locations
-  end
-  authenticate :admin do
-    mount Sidekiq::Web => "/sidekiq"
+    resources :organizations, only: [ :show ]
   end
 
-  get "dashboard/admin", as: :admin_dashboard
-  get "dashboard/user", as: :user_dashboard
-  get "dashboard/applicant", as: :applicant_dashboard
-  resources :organizations do
-    member do
-      post :create_users
-      post :sync_user_info
+  namespace :administrator do
+    resources :organizations do
+      member do
+        post :create_users
+        post :sync_user_info
+      end
     end
   end
   devise_for :users, controllers: {
@@ -32,6 +29,14 @@ Rails.application.routes.draw do
     confirmations: "administrator/admin/confirmations",
     unlocks: "administrator/admin/unlocks"
   }
+
+  authenticate :admin do
+    mount Sidekiq::Web => "/sidekiq"
+  end
+
+  get "dashboard/admin", as: :admin_dashboard
+  get "dashboard/user", as: :user_dashboard
+  get "dashboard/applicant", as: :applicant_dashboard
   root "public#home"
   get "public/about"
   get "public/contact"

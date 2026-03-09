@@ -80,15 +80,15 @@
 </div>
 
 <div>
-  <%= link_to "Edit this organization", edit_organization_path(@organization) %> |
-  <%= link_to "Back to organizations", organizations_path %>
+  <%= link_to "Edit this organization", edit_administrator_organization_path(@organization) %> |
+  <%= link_to "Back to organizations", administrator_organizations_path %>
 
   <div class="mt-4 flex gap-x-4">
-    <%= button_to "Create Organization Users", create_users_organization_path(@organization), method: :post, class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-    <%= button_to "Sync User Info", sync_user_info_organization_path(@organization), method: :post, class: "rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" %>
+    <%= button_to "Create Organization Users", create_users_administrator_organization_path(@organization), method: :post, class: "rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+    <%= button_to "Sync User Info", sync_user_info_administrator_organization_path(@organization), method: :post, class: "rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600" %>
   </div>
 
   <div class="mt-4">
-    <%= button_to "Destroy this organization", @organization, method: :delete, data: { confirm: "Are you sure?" } %>
+    <%= button_to "Destroy this organization", administrator_organization_path(@organization), method: :delete, data: { confirm: "Are you sure?" } %>
   </div>
 </div>
