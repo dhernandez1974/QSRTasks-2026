@@ -1,5 +1,6 @@
 class Organization < ApplicationRecord
-  has_one :contact, class_name: "User", dependent: :destroy
+  has_one :contact, -> { where(admin: true) }, class_name: "User", dependent: :destroy
+  has_many :users, dependent: :destroy
   has_many :hr_ssns, class_name: "Datapass::HrSsn", dependent: :destroy
   has_many :employee_histories, class_name: "Datapass::EmployeeHistory", dependent: :destroy
   has_many :locations, class_name: "Organization::Location", dependent: :destroy
@@ -10,7 +11,7 @@ class Organization < ApplicationRecord
   validates :primary_operator, inclusion: { in: [ true, false ] }
 
   before_save :normalize_attributes
-  after_create :set_default_departments
+  # after_create :set_default_departments
   # after_create :set_default_vendor
 
   def full_address
@@ -18,46 +19,46 @@ class Organization < ApplicationRecord
   end
 
   def set_default_departments
-    user = User.find_by(organization_id: self.id)
+    user = self.contact || User.find_by(organization_id: self.id)
 
-    ops = Department.create(name: "Operations", organization: self, updated_by: user)
-    admin = Department.create(name: "Administration", organization: self, updated_by: user)
-    maint = Department.create(name: "Maintenance", organization: self, updated_by: user)
+    ops = Organization::Department.create(name: "Operations", organization: self, updated_by: user)
+    admin = Organization::Department.create(name: "Administration", organization: self, updated_by: user)
+    maint = Organization::Department.create(name: "Maintenance", organization: self, updated_by: user)
     
-    owner = Position.create(department: admin, organization: self, name: "Owner", rate_type: "Salary",
-      authorized: Position::AUTHORIZED, authorization_level: "Organization", job_tier: "Staff", job_class: "Staff",
+    owner = Organization::Position.create(department: admin, organization: self, name: "Owner", rate_type: "Salary",
+      authorized: Organization::Position::AUTHORIZED, authorization_level: "Organization", job_tier: "Staff", job_class: "Staff",
       maintenance_team: true, maintenance_lead: false, reports_to_id: Admin.first&.id,
       updated_by: user)
-    director = Position.create(department: admin, organization: self, name: "Director of Operations", rate_type:
-      "Salary", reports_to: owner.id, authorized: Position::AUTHORIZED, authorization_level: "Organization",
+    director = Organization::Position.create(department: admin, organization: self, name: "Director of Operations", rate_type:
+      "Salary", reports_to_id: owner.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Organization",
       job_tier: "Staff", job_class: "Staff", maintenance_team: true, maintenance_lead: false,
       updated_by: user)
-    om = Position.create(department: ops, organization: self, name: "Operations Manager", rate_type: "Salary",
-      reports_to: director.id, authorized: Position::AUTHORIZED, authorization_level: "Department",
+    om = Organization::Position.create(department: ops, organization: self, name: "Operations Manager", rate_type: "Salary",
+      reports_to_id: director.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Department",
       job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false,
       updated_by: user)
-    sup = Position.create(department: ops, organization: self, name: "Supervisor", rate_type: "Salary",
-      reports_to: om.id, authorized: Position::AUTHORIZED, authorization_level: "Department",
+    sup = Organization::Position.create(department: ops, organization: self, name: "Supervisor", rate_type: "Salary",
+      reports_to_id: om.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Department",
       job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false,
       updated_by: user)
-    gm = Position.create(department: ops, organization: self, name: "General Manager", rate_type: "Salary",
-      reports_to: sup.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+    gm = Organization::Position.create(department: ops, organization: self, name: "General Manager", rate_type: "Salary",
+      reports_to_id: sup.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
-    Position.create(department: ops, organization: self, name: "Department Manager", rate_type: "Hourly",
-      reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+    Organization::Position.create(department: ops, organization: self, name: "Department Manager", rate_type: "Hourly",
+      reports_to_id: gm.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
-    Position.create(department: ops, organization: self, name: "Manager", rate_type: "Hourly",
-      reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+    Organization::Position.create(department: ops, organization: self, name: "Manager", rate_type: "Hourly",
+      reports_to_id: gm.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
-    Position.create(department: ops, organization: self, name: "Crew", rate_type: "Hourly",
-      reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+    Organization::Position.create(department: ops, organization: self, name: "Crew", rate_type: "Hourly",
+      reports_to_id: gm.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
-    Position.create(department: ops, organization: self, name: "Store Maintenance", rate_type: "Hourly",
-      reports_to: gm.id, authorized: Position::AUTHORIZED, authorization_level: "Location",
+    Organization::Position.create(department: ops, organization: self, name: "Store Maintenance", rate_type: "Hourly",
+      reports_to_id: gm.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
   end

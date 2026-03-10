@@ -55,6 +55,8 @@ module Datapass
         Datapass::GeidMatchJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-HR-SSN'
         Datapass::GeidMatchJob.perform_later(payload_file, nsn, timestamp)
+      when 'LZ-HR-EmployeeHistory'
+        Datapass::EmployeeHistoryJob.perform_later(payload_file, nsn, timestamp)
       when 'eR-HR-Identification'
         Datapass::IdentificationJob.perform_later(payload_file, nsn, timestamp)
       when 'LZ-HR-Identification'

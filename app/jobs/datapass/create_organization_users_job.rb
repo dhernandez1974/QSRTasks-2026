@@ -44,7 +44,20 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
   end
 
   def aggregate_user_data(geid)
-    data = {}
+    data = { location_ids: [] }
+
+    # HrPersonal
+    hp = Datapass::HrPersonal.find_by(geid: geid)
+    if hp
+      data[:first_name] ||= hp.first_name
+      data[:last_name] ||= hp.last_name
+      data[:email] = hp.email_address if hp.email_address.present?
+      data[:phone_number] = hp.cell_phone_number if hp.cell_phone_number.present?
+      data[:payroll_id] ||= hp.payroll_id
+      data[:birth_date] ||= hp.date_of_birth
+      data[:organization_id] ||= hp.organization_id
+      data[:location_ids] << hp.location_id if hp.location_id.present?
+    end
 
     # EmployeeDetail
     ed = Datapass::EmployeeDetail.find_by(geid: geid)
@@ -53,25 +66,12 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
       data[:last_name] ||= ed.last_name
       data[:email] ||= ed.email
       data[:phone_number] ||= ed.primary_phone
-      data[:eid] ||= ed.eid
+      data[:eid] = ed.eid if ed.eid.present?
       data[:payroll_id] ||= ed.payroll_id
       data[:birth_date] ||= ed.birth_date
       data[:hire_date] ||= ed.organization_start_date
       data[:organization_id] ||= ed.organization_id
-      data[:location_id] ||= ed.location_id
-    end
-
-    # HrPersonal
-    hp = Datapass::HrPersonal.find_by(geid: geid)
-    if hp
-      data[:first_name] ||= hp.first_name
-      data[:last_name] ||= hp.last_name
-      data[:email] ||= hp.email_address
-      data[:phone_number] ||= hp.cell_phone_number
-      data[:payroll_id] ||= hp.payroll_id
-      data[:birth_date] ||= hp.date_of_birth
-      data[:organization_id] ||= hp.organization_id
-      data[:location_id] ||= hp.location_id
+      data[:location_ids] << ed.location_id if ed.location_id.present?
     end
 
     # Idmgmt
@@ -83,7 +83,7 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
       data[:payroll_id] ||= idm.payroll_id
       data[:hire_date] ||= idm.organization_start_date
       data[:organization_id] ||= idm.organization_id
-      data[:location_id] ||= idm.location_id
+      data[:location_ids] << idm.location_id if idm.location_id.present?
     end
 
     # Identification
@@ -93,18 +93,19 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
       data[:last_name] ||= ident.last_name
       data[:email] ||= ident.email_address
       data[:social] ||= ident.ssn
-      data[:birth_date] ||= ident.birth_day
+      data[:birth_date] = ident.birth_day if ident.birth_day.present?
       data[:organization_id] ||= ident.organization_id
-      data[:location_id] ||= ident.location_id
+      data[:location_ids] << ident.location_id if ident.location_id.present?
     end
 
     # HrSsn
     hssn = Datapass::HrSsn.find_by(geid: geid)
     if hssn
-      data[:social] ||= hssn.ssn
+      data[:social] = hssn.ssn if hssn.ssn.present?
       data[:organization_id] ||= hssn.organization_id
     end
 
+    data[:location_ids] = data[:location_ids].uniq.compact
     data
   end
 
@@ -118,7 +119,14 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
 
     # Set attributes if they are present and user's current attribute is blank
     data.each do |key, value|
+      next if key == :location_ids
       user.send("#{key}=", value) if value.present? && user.send(key).blank?
+    end
+
+    # Explicitly update locations
+    if data[:location_ids].present?
+      user.locations = Organization::Location.where(id: data[:location_ids])
+      user.location_id = data[:location_ids].first if user.location_id.blank?
     end
 
     # Default email if not found in any record

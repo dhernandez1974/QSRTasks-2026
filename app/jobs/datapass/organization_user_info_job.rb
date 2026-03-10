@@ -2,7 +2,8 @@ module Datapass
   class OrganizationUserInfoJob < ApplicationJob
     queue_as :default
 
-    TARGET_TOPICS = %w[HR-EmployeeDetails LZ-HR-IdMgmtFull LZ-HR-Identification LZ-HR-SSN LZ-HR-Personal LZ-HR-EmployeeHistory].freeze
+    TARGET_TOPICS = %w[HR-EmployeeDetails LZ-HR-IdMgmtFull LZ-HR-Identification LZ-HR-SSN LZ-HR-Personal
+LZ-HR-EmployeeHistory].freeze
 
     # Scans the datapass S3 bucket for the previous N days and reprocesses matching files
     # by enqueueing DatapassWebhookRouter with application/json content type (filename lookup path).

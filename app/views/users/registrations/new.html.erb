@@ -5,7 +5,7 @@
 
   <div class="field">
     <p><%= f.label :email %></p>
-    <p><%= f.email_field :email, autofocus: true, autocomplete: "email" %></p>
+    <p><%= f.email_field :email, autofocus: true, autocomplete: "email", class: "block w-full rounded-md border-0 px-2 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-accent sm:text-sm sm:leading-6" %></p>
   </div>
 
   <div class="field">
@@ -13,12 +13,12 @@
     <% if @minimum_password_length %>
       <p><em>(<%= @minimum_password_length %> characters minimum)</em></p>
     <% end %>
-    <p><%= f.password_field :password, autocomplete: "new-password" %></p>
+    <p><%= f.password_field :password, autocomplete: "new-password", class: "block w-full rounded-md border-0 px-2 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-accent sm:text-sm sm:leading-6" %></p>
   </div>
 
   <div class="field">
     <p><%= f.label :password_confirmation %></p>
-    <p><%= f.password_field :password_confirmation, autocomplete: "new-password" %></p>
+    <p><%= f.password_field :password_confirmation, autocomplete: "new-password", class: "block w-full rounded-md border-0 px-2 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-accent sm:text-sm sm:leading-6" %></p>
   </div>
 
   <div class="actions">

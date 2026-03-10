@@ -4,18 +4,20 @@
 #   admin.first_name = 'Daniel'
 #   admin.last_name = 'Hernandez'
 # end
-
-# Organization.find_or_create_by!(eid: 'ef002032') do |org|
-#   org.name = 'Stagg Restaurants Partnership'
-#   org.phone = '210-375-7100'
-#   org.street = '8507 Speedway Drive'
-#   org.city = 'San Antonio'
-#   org.state = 'TX'
-#   org.zip = '78230'
-#   org.primary_operator = true
-#   org.primary_eid = 'ef002032'
-# end
 #
+# Admin.first.confirm
+#
+Organization.find_or_create_by!(eid: 'ef002032') do |org|
+  org.name = 'Stagg Restaurants Partnership'
+  org.phone = '210-375-7100'
+  org.street = '8507 Speedway Drive'
+  org.city = 'San Antonio'
+  org.state = 'TX'
+  org.zip = '78230'
+  org.primary_operator = true
+  org.primary_eid = 'ef002032'
+end
+
 Organization.find_or_create_by!(eid: 'e0071374') do |org|
   org.name = 'Stagg Restaurants Partnership II'
   org.phone = '210-375-7100'

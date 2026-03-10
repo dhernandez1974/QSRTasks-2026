@@ -47,10 +47,12 @@ class Administrator::OrganizationsController < ApplicationController
     @organization = Organization.new(organization_params)
     @contact = User.new(user_params)
     @contact.organization = @organization
+    @contact.admin = true
 
     respond_to do |format|
       ActiveRecord::Base.transaction do
         if @organization.save && @contact.save
+          @organization.set_default_departments
           format.html { redirect_to administrator_organization_path(@organization), notice: "Organization was successfully created." }
           format.json { render :show, status: :created, location: [:administrator, @organization] }
         else
@@ -97,6 +99,6 @@ class Administrator::OrganizationsController < ApplicationController
     end
 
     def user_params
-      params.expect(user: [ :email, :password, :password_confirmation, :birth_date, :social, :eid, :geid, :payroll_id, :hire_date ])
+      params.expect(user: [ :email, :password, :password_confirmation, :birth_date, :social, :eid, :geid, :payroll_id, :hire_date, :first_name, :last_name, :phone_number ])
     end
 end

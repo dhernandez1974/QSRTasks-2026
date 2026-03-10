@@ -48,9 +48,9 @@ class Datapass::EmployeeHistoryJobTest < ActiveJob::TestCase
     File.delete(@test_file_path) if @test_file_path && File.exist?(@test_file_path)
   end
 
-  test "should create employee history records from json" do
+  test "should create employee history records from payload" do
     assert_difference("Datapass::EmployeeHistory.count", 1) do
-      Datapass::EmployeeHistoryJob.perform_now(@test_file_path.to_s)
+      Datapass::EmployeeHistoryJob.perform_now(@test_data, "1480", "20260309123456000")
     end
 
     history = Datapass::EmployeeHistory.find_by(geid: "516141")
@@ -75,20 +75,18 @@ class Datapass::EmployeeHistoryJobTest < ActiveJob::TestCase
     )
 
     assert_no_difference("Datapass::EmployeeHistory.count") do
-      Datapass::EmployeeHistoryJob.perform_now(@test_file_path.to_s)
+      Datapass::EmployeeHistoryJob.perform_now(@test_data, "1480", "20260309123456000")
     end
 
     history = Datapass::EmployeeHistory.find_by(geid: "516141")
     assert_equal "ACTIVE", history.termination_reason
   end
 
-  test "should handle Ruby-style hash strings (with =>)" do
-    # Simulate the weird format seen in some files
-    ruby_hash_content = '[{"GEID" => "516141", "StoreHistory" => [{"Store" => "01480", "HomeOrShared" => "Home"}]}]'
-    File.write(@test_file_path, ruby_hash_content)
+  test "should handle JSON string payload" do
+    json_payload = @test_data.to_json
 
     assert_difference("Datapass::EmployeeHistory.count", 1) do
-      Datapass::EmployeeHistoryJob.perform_now(@test_file_path.to_s)
+      Datapass::EmployeeHistoryJob.perform_now(json_payload, "1480", "20260309123456000")
     end
     
     assert_not_nil Datapass::EmployeeHistory.find_by(geid: "516141")
