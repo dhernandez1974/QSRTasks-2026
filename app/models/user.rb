@@ -4,6 +4,7 @@ class User < ApplicationRecord
 
   belongs_to :organization, optional: true
   belongs_to :location, class_name: "Organization::Location", optional: true
+  belongs_to :position, class_name: "Organization::Position", optional: true
   has_and_belongs_to_many :locations, class_name: "Organization::Location"
 
   encrypts :social, :eid, :geid, :phone_number, :first_name, :last_name, :payroll_id, deterministic: true

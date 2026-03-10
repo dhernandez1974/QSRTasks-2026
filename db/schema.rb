@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_08_213802) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_10_185733) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -299,7 +299,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_213802) do
     t.string "name", null: false
     t.uuid "organization_id", null: false
     t.string "rate_type", default: "Hourly"
-    t.uuid "reports_to_id", null: false
+    t.uuid "reports_to_id"
     t.datetime "updated_at", null: false
     t.uuid "updated_by_id", null: false
     t.index ["department_id"], name: "index_organization_positions_on_department_id"
@@ -347,6 +347,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_213802) do
     t.uuid "organization_id"
     t.string "payroll_id"
     t.string "phone_number"
+    t.uuid "position_id"
     t.datetime "reset_password_sent_at"
     t.string "reset_password_token"
     t.integer "sign_in_count", default: 0, null: false
@@ -357,6 +358,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_213802) do
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["phone_number"], name: "index_users_on_phone_number", unique: true
+    t.index ["position_id"], name: "index_users_on_position_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
@@ -378,9 +380,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_08_213802) do
   add_foreign_key "organization_departments", "organizations"
   add_foreign_key "organization_departments", "users", column: "updated_by_id"
   add_foreign_key "organization_positions", "organization_departments", column: "department_id"
+  add_foreign_key "organization_positions", "organization_departments", column: "reports_to_id"
   add_foreign_key "organization_positions", "organizations"
-  add_foreign_key "organization_positions", "users", column: "reports_to_id"
   add_foreign_key "organization_positions", "users", column: "updated_by_id"
   add_foreign_key "users", "locations"
+  add_foreign_key "users", "organization_positions", column: "position_id"
   add_foreign_key "users", "organizations"
 end

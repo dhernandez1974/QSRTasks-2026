@@ -1,8 +1,8 @@
 class Organization::Position < ApplicationRecord
   belongs_to :organization
   belongs_to :department, class_name: "Organization::Department"
-  belongs_to :updated_by, class_name: "User"
-  belongs_to :reports_to, class_name: "User"
+  belongs_to :updated_by, class_name: "User", optional: true
+  belongs_to :reports_to, class_name: "Organization::Department", optional: true
 
   RATE_TYPE = %w[Hourly Salary].freeze
   JOB_TIER = ["Self", "Restaurant", "Above Restaurant", "Staff"].freeze

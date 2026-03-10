@@ -27,38 +27,38 @@ class Organization < ApplicationRecord
     
     owner = Organization::Position.create(department: admin, organization: self, name: "Owner", rate_type: "Salary",
       authorized: Organization::Position::AUTHORIZED, authorization_level: "Organization", job_tier: "Staff", job_class: "Staff",
-      maintenance_team: true, maintenance_lead: false, reports_to_id: Admin.first&.id,
+      maintenance_team: true, maintenance_lead: false,
       updated_by: user)
     director = Organization::Position.create(department: admin, organization: self, name: "Director of Operations", rate_type:
-      "Salary", reports_to_id: owner.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Organization",
+      "Salary", reports_to: admin, authorized: Organization::Position::AUTHORIZED, authorization_level: "Organization",
       job_tier: "Staff", job_class: "Staff", maintenance_team: true, maintenance_lead: false,
       updated_by: user)
     om = Organization::Position.create(department: ops, organization: self, name: "Operations Manager", rate_type: "Salary",
-      reports_to_id: director.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Department",
+      reports_to: admin, authorized: Organization::Position::AUTHORIZED, authorization_level: "Department",
       job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false,
       updated_by: user)
     sup = Organization::Position.create(department: ops, organization: self, name: "Supervisor", rate_type: "Salary",
-      reports_to_id: om.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Department",
+      reports_to: ops, authorized: Organization::Position::AUTHORIZED, authorization_level: "Department",
       job_tier: "Above Restaurant", job_class: "Supervision", maintenance_team: true, maintenance_lead: false,
       updated_by: user)
     gm = Organization::Position.create(department: ops, organization: self, name: "General Manager", rate_type: "Salary",
-      reports_to_id: sup.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
+      reports_to: ops, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
     Organization::Position.create(department: ops, organization: self, name: "Department Manager", rate_type: "Hourly",
-      reports_to_id: gm.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
+      reports_to: ops, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
     Organization::Position.create(department: ops, organization: self, name: "Manager", rate_type: "Hourly",
-      reports_to_id: gm.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
+      reports_to: ops, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Restaurant", job_class: "Management", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
     Organization::Position.create(department: ops, organization: self, name: "Crew", rate_type: "Hourly",
-      reports_to_id: gm.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
+      reports_to: ops, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
     Organization::Position.create(department: ops, organization: self, name: "Store Maintenance", rate_type: "Hourly",
-      reports_to_id: gm.id, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
+      reports_to: ops, authorized: Organization::Position::AUTHORIZED, authorization_level: "Location",
       job_tier: "Self", job_class: "Crew", maintenance_team: false, maintenance_lead: false,
       updated_by: user)
   end

@@ -1,4 +1,4 @@
-class Datapass::CreatePositionsJob < ApplicationJob
+class Datapass::CreateJtcPositionsJob < ApplicationJob
   queue_as :default
   discard_on ActiveRecord::RecordInvalid
 

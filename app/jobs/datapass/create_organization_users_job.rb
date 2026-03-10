@@ -72,6 +72,14 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
       data[:hire_date] ||= ed.organization_start_date
       data[:organization_id] ||= ed.organization_id
       data[:location_ids] << ed.location_id if ed.location_id.present?
+
+      if ed.jtc.present?
+        jtc_pos = Datapass::JtcPosition.find_by(jtc: ed.jtc)
+        if jtc_pos&.matching_position.present?
+          org_pos = Organization::Position.find_by(organization_id: data[:organization_id], name: jtc_pos.matching_position)
+          data[:position_id] ||= org_pos.id if org_pos
+        end
+      end
     end
 
     # Idmgmt
@@ -122,6 +130,10 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
       next if key == :location_ids
       user.send("#{key}=", value) if value.present? && user.send(key).blank?
     end
+
+    # Explicitly update position if it's already set in data but blank on user
+    # (The loop above handles this, but being explicit doesn't hurt if we want to ensure it's updated)
+    # Actually the loop is fine. Let's just make sure position_id is included in the loop.
 
     # Explicitly update locations
     if data[:location_ids].present?

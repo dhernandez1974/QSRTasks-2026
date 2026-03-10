@@ -6,7 +6,7 @@ class Datapass::CreateOrganizationUsersJobTest < ActiveJob::TestCase
     @organization.update!(eid: "EID123")
     
     # Clean up to ensure a predictable state
-    User.delete_all
+    User.where.not(id: users(:one).id).delete_all
     Datapass::EmployeeDetail.delete_all
     Datapass::HrPersonal.delete_all
     Datapass::HrSsn.delete_all
@@ -91,25 +91,49 @@ class Datapass::CreateOrganizationUsersJobTest < ActiveJob::TestCase
     assert_equal "123-456-7890", user.phone_number
   end
 
-  test "should handle multiple GEIDs" do
-    Datapass::HrSsn.create!(geid: "USER1", ssn: "SSN1", organization: @organization)
-    Datapass::HrSsn.create!(geid: "USER2", ssn: "SSN2", organization: @organization)
+  test "should assign position to user based on JTC" do
+    jtc_code = "JTC123"
+    position_name = "Store Manager"
+    
+    # Create Organization Position
+    dept = Organization::Department.create!(name: "Ops", organization: @organization, updated_by: users(:one))
+    org_pos = Organization::Position.create!(
+      name: position_name,
+      organization: @organization,
+      department: dept,
+      updated_by: users(:one),
+      rate_type: "Salary",
+      authorized: Organization::Position::AUTHORIZED,
+      authorization_level: "Location",
+      job_tier: "Restaurant",
+      job_class: "Management"
+    )
 
-    # We need to update fixtures' organizations to have the same EID if we want them to be included
-    # or just count our own new ones.
-    # Given the filtering, only records matching @organization.eid ("EID123") will be processed.
-    # Our new records should match.
-    
-    # Let's see how many records match EID123.
-    # EmployeeDetail matches via 'eid' column. Others via organization's eid.
-    
-    expected_new_users = 3 # @geid (from previous tests if not cleared, but here it's fresh), USER1, USER2
-    # Wait, @geid is NOT created in this test. So only USER1 and USER2.
-    # But wait, there might be others.
-    
-    # Let's just focus on the ones we create here.
-    assert_difference "User.count", 2 do
+    # Create JTC Position mapping
+    Datapass::JtcPosition.create!(
+      jtc: jtc_code,
+      job_title: "Store Manager Title",
+      matching_position: position_name
+    )
+
+    # Create Employee Detail with JTC
+    Datapass::EmployeeDetail.create!(
+      geid: @geid,
+      first_name: "John",
+      last_name: "Doe",
+      email: "john.doe@example.com",
+      organization: @organization,
+      location: @location,
+      eid: "EID123",
+      jtc: jtc_code
+    )
+
+    assert_difference "User.count", 1 do
       Datapass::CreateOrganizationUsersJob.perform_now(@organization.id)
     end
+
+    user = User.find_by(geid: @geid)
+    assert_not_nil user
+    assert_equal org_pos.id, user.position_id
   end
 end
