@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :organization do
     resources :departments
     resources :locations
+    resources :users
     resources :organizations, only: [ :show ]
   end
 
