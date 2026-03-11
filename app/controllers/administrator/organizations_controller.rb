@@ -18,14 +18,8 @@ class Administrator::OrganizationsController < ApplicationController
 
   def sync_user_info
     organization_ids = [ @organization.id ]
-    if @organization.primary_operator?
-      organization_ids += Organization.where(primary_eid: @organization.eid).where(primary_operator: false).pluck(:id)
-    else
-      if @organization.primary_eid.present?
-        primary = Organization.find_by(eid: @organization.primary_eid, primary_operator: true)
-        organization_ids << primary.id if primary
-      end
-    end
+    secondary_organizations = Organization.where(eid: @organization.secondary_eids)
+    organization_ids += secondary_organizations.pluck(:id)
 
     Datapass::OrganizationUserInfoJob.perform_later(organization_ids: organization_ids.uniq)
     redirect_to administrator_organization_path(@organization), notice: "Organization user info sync job has been started."
@@ -95,7 +89,7 @@ class Administrator::OrganizationsController < ApplicationController
     end
 
     def organization_params
-      params.expect(organization: [ :name, :phone, :eid, :primary_eid, :street, :city, :state, :zip, :primary_operator ])
+      params.expect(organization: [ :name, :phone, :eid, :street, :city, :state, :zip, secondary_eids: [] ])
     end
 
     def user_params

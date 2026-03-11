@@ -53,9 +53,9 @@
       </div>
 
       <div class="sm:col-span-3">
-        <%= f.label :primary_eid, "Primary EID", class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <%= f.label :secondary_eids, "Secondary EIDs (one per line)", class: "block text-sm font-medium leading-6 text-gray-900" %>
         <div class="mt-2">
-          <%= f.text_field :primary_eid, class: "block w-full rounded-md border-0 px-2 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-accent sm:text-sm sm:leading-6" %>
+          <%= f.text_area :secondary_eids, value: f.object.secondary_eids&.join("\n"), name: "organization[secondary_eids][]", class: "block w-full rounded-md border-0 px-2 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-brand-accent sm:text-sm sm:leading-6", rows: 3 %>
         </div>
       </div>
 
@@ -87,17 +87,6 @@
         </div>
       </div>
 
-      <div class="col-span-full">
-        <div class="relative flex gap-x-3">
-          <div class="flex h-6 items-center">
-            <%= f.check_box :primary_operator, class: "h-4 w-4 rounded border-gray-300 text-brand-accent focus:ring-brand-accent" %>
-          </div>
-          <div class="text-sm leading-6">
-            <%= f.label :primary_operator, class: "font-medium text-gray-900" %>
-            <p class="text-gray-500">Check this if this is the primary operator organization.</p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 

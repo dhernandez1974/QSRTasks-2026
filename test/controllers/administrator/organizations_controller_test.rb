@@ -25,7 +25,7 @@ class Administrator::OrganizationsControllerTest < ActionDispatch::IntegrationTe
       assert_difference("User.count") do
         post administrator_organizations_url, params: { 
           organization: { 
-            city: "City", eid: "EID", name: "Org", phone: "123", state: "ST", street: "St", zip: "12345", primary_operator: true 
+            city: "City", eid: "EID", name: "Org", phone: "123", state: "ST", street: "St", zip: "12345" 
           },
           user: {
             email: "new_user@example.com",
@@ -75,12 +75,12 @@ class Administrator::OrganizationsControllerTest < ActionDispatch::IntegrationTe
     assert_equal "Organization user info sync job has been started.", flash[:notice]
   end
 
-  test "should sync user info with associated organizations for primary operator" do
-    @organization.update!(primary_operator: true, eid: "primary-eid")
-    associated_org = organizations(:two)
-    associated_org.update!(primary_eid: "primary-eid", primary_operator: false)
+  test "should sync user info with secondary organizations" do
+    @organization.update!(secondary_eids: ["secondary-eid"])
+    secondary_org = organizations(:two)
+    secondary_org.update!(eid: "secondary-eid")
 
-    assert_enqueued_with(job: Datapass::OrganizationUserInfoJob, args: [{ organization_ids: [@organization.id, associated_org.id] }]) do
+    assert_enqueued_with(job: Datapass::OrganizationUserInfoJob, args: [{ organization_ids: [@organization.id, secondary_org.id] }]) do
       post sync_user_info_administrator_organization_url(@organization)
     end
   end

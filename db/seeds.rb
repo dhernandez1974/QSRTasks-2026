@@ -1,35 +1,41 @@
-# Admin.find_or_create_by!(email: 'admin@qsrtasks.com') do |admin|
-#   admin.password = 'mina1973'
-#   admin.password_confirmation = 'mina1973'
-#   admin.first_name = 'Daniel'
-#   admin.last_name = 'Hernandez'
-# end
-#
-# Admin.first.confirm
-
-Organization.find_or_create_by!(eid: 'ef002032') do |org|
-  org.name = 'Stagg Restaurants Partnership'
-  org.phone = '210-375-7100'
-  org.street = '8507 Speedway Drive'
-  org.city = 'San Antonio'
-  org.state = 'TX'
-  org.zip = '78230'
-  org.primary_operator = true
-  org.primary_eid = 'ef002032'
+Admin.find_or_create_by!(email: 'admin@qsrtasks.com') do |admin|
+  admin.password = 'mina1973'
+  admin.password_confirmation = 'mina1973'
+  admin.first_name = 'Daniel'
+  admin.last_name = 'Hernandez'
 end
 
-Organization.find_or_create_by!(eid: 'e0071374') do |org|
-  org.name = 'Stagg Restaurants Partnership II'
-  org.phone = '210-375-7100'
-  org.street = '8507 Speedway Drive'
-  org.city = 'San Antonio'
-  org.state = 'TX'
-  org.zip = '78230'
-  org.primary_operator = false
-  org.primary_eid = 'ef002032'
-end
+Admin.first.confirm
 
-stagg = Organization.find_by(eid: 'ef002032')
+stagg = Organization.new(
+  eid: 'ef002032',
+  name: 'Stagg Restaurants Partnership',
+  phone: '210-375-7100',
+  street: '8507 Speedway Drive',
+  city: 'San Antonio',
+  state: 'TX',
+  zip: '78230',
+  secondary_eids: ['e0071374']
+)
+
+contact = User.new(
+  first_name: 'Stagg',
+  last_name: 'Restaurants',
+  email: 'stagg@qsrtasks.com',
+  phone_number: '210-375-7100',
+  password: 'password123',
+  password_confirmation: 'password123',
+  admin: true,
+  organization: stagg
+)
+
+stagg.save!
+contact.save!
+contact.confirm
+
+stagg.set_default_departments
+
+# stagg variable already initialized above
 puts "Creating Locations"
 
 Organization::Location.find_or_create_by!(number: 1480) do |loc|

@@ -6,14 +6,13 @@ class NormalizationTest < ActiveSupport::TestCase
       name: "the best organization",
       phone: "1234567890",
       eid: "ABC-123",
-      primary_eid: "XYZ-789",
-      street: "St", city: "City", state: "ST", zip: "12345",
-      primary_operator: true
+      secondary_eids: ["XYZ-789", "  "],
+      street: "St", city: "City", state: "ST", zip: "12345"
     )
     assert_equal "The Best Organization", org.name
     assert_equal "123-456-7890", org.phone
     assert_equal "abc-123", org.eid
-    assert_equal "xyz-789", org.primary_eid
+    assert_equal ["xyz-789"], org.secondary_eids
   end
 
   test "location normalization" do

@@ -13,7 +13,7 @@ class OrganizationContactTest < ActionDispatch::IntegrationTest
       assert_difference("User.count", 1) do
         post administrator_organizations_url, params: { 
           organization: { 
-            city: "Test City", eid: "TESTEID", name: "Test Org", phone: "1234567890", state: "NY", street: "123 Main St", zip: "10001", primary_operator: true 
+            city: "Test City", eid: "TESTEID", name: "Test Org", phone: "1234567890", state: "NY", street: "123 Main St", zip: "10001" 
           },
           user: {
             email: "contact@example.com",
@@ -36,7 +36,7 @@ class OrganizationContactTest < ActionDispatch::IntegrationTest
 
   test "contact should persist even after more users are added" do
     org = Organization.create!(
-      city: "Test City", eid: "TESTPERSIST", name: "Test Org", phone: "1234567890", state: "NY", street: "123 Main St", zip: "10001", primary_operator: true
+      city: "Test City", eid: "TESTPERSIST", name: "Test Org", phone: "1234567890", state: "NY", street: "123 Main St", zip: "10001"
     )
     contact_user = User.new(
       email: "admin_contact@example.com",

@@ -16,13 +16,19 @@ LZ-HR-EmployeeHistory].freeze
     def perform(organization_ids:, days: 7, topics: TARGET_TOPICS)
       raise ArgumentError, "organization_ids must be provided" if organization_ids.blank?
 
-      # Build a case-insensitive set of EIDs (include both eid and primary_eid for safety)
-      eid_pairs = Organization.where(id: organization_ids).pluck(:eid, :primary_eid)
+      # Build a case-insensitive set of EIDs (include both eid and secondary_eids for safety)
+      eid_pairs = Organization.where(id: organization_ids).pluck(:eid, :secondary_eids)
       if eid_pairs.blank?
         Rails.logger.warn("OrganizationUserInfoJob: No organizations found for ids=#{organization_ids.inspect}")
         return 0
       end
-      eid_set = eid_pairs.flatten.compact.map { |e| e.to_s.downcase }.uniq.to_set
+      eid_set = Set.new
+      eid_pairs.each do |eid, secondary|
+        eid_set << eid.to_s.downcase if eid.present?
+        if secondary.is_a?(Array)
+          secondary.each { |s| eid_set << s.to_s.downcase if s.present? }
+        end
+      end
 
       creds = Rails.application.credentials.aws_datapass || {}
       access_key_id     = creds[:access_key_id] || creds[:key] || ENV["AWS_ACCESS_KEY_ID"]

@@ -4,10 +4,10 @@ class Datapass::CreateOrganizationUsersFilteringJobTest < ActiveJob::TestCase
   setup do
     # Update organizations to match our test EIDs
     @primary_org = organizations(:one)
-    @primary_org.update!(eid: "primary_eid", primary_operator: true)
+    @primary_org.update!(eid: "primary_eid", secondary_eids: ["secondary_eid"])
     
     @secondary_org = organizations(:two)
-    @secondary_org.update!(eid: "secondary_eid", primary_eid: "primary_eid", primary_operator: false)
+    @secondary_org.update!(eid: "secondary_eid", secondary_eids: ["primary_eid"])
     
     # Clean up GEID-related tables to avoid noise
     User.delete_all
@@ -21,16 +21,16 @@ class Datapass::CreateOrganizationUsersFilteringJobTest < ActiveJob::TestCase
     @location = organization_locations(:one)
   end
 
-  test "primary operator should include its own and associated organizations' geids" do
+  test "organization should include its own and secondary organizations' geids" do
     # GEID for primary org
     Datapass::EmployeeDetail.create!(geid: "geid_primary", eid: "primary_eid", organization: @primary_org, location: @location)
     
-    # GEID for secondary org (associated with primary via primary_eid)
+    # GEID for secondary org (associated via secondary_eids)
     Datapass::EmployeeDetail.create!(geid: "geid_secondary", eid: "secondary_eid", organization: @secondary_org, location: @location)
     
     # GEID for unrelated org
     @unrelated_org = organizations(:one).dup
-    @unrelated_org.update!(name: "Unrelated Org", eid: "unrelated_eid", primary_operator: false)
+    @unrelated_org.update!(name: "Unrelated Org", eid: "unrelated_eid")
     Datapass::EmployeeDetail.create!(geid: "geid_unrelated", eid: "unrelated_eid", organization: @unrelated_org, location: @location)
 
     # Job for primary org
@@ -41,16 +41,16 @@ class Datapass::CreateOrganizationUsersFilteringJobTest < ActiveJob::TestCase
     assert_nil User.find_by(geid: "geid_unrelated")
   end
 
-  test "secondary org should only include its own geids and geids matching its primary_eid" do
+  test "organization should only include its own geids and geids matching its secondary_eids" do
     # GEID matching secondary org's eid
     Datapass::EmployeeDetail.create!(geid: "geid_sec_match", eid: "secondary_eid", organization: @secondary_org, location: @location)
     
-    # GEID matching secondary org's primary_eid
+    # GEID matching secondary org's secondary_eids
     Datapass::EmployeeDetail.create!(geid: "geid_pri_match", eid: "primary_eid", organization: @primary_org, location: @location)
     
     # GEID for unrelated org
     @unrelated_org = organizations(:one).dup
-    @unrelated_org.update!(name: "Other Org", eid: "unrelated_eid", primary_operator: false)
+    @unrelated_org.update!(name: "Other Org", eid: "unrelated_eid")
     Datapass::EmployeeDetail.create!(geid: "geid_other", eid: "unrelated_eid", organization: @unrelated_org, location: @location)
 
     # Job for secondary org

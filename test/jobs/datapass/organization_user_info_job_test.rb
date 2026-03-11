@@ -5,16 +5,17 @@ class Datapass::OrganizationUserInfoJobTest < ActiveJob::TestCase
   setup do
     (self.class.respond_to?(:queue_adapter=) ? self.class : ActiveJob::Base).queue_adapter = :test
     @organization = organizations(:one)
-    @organization.update!(eid: "12345")
+    @organization.update!(eid: "12345", secondary_eids: [])
   end
 
   test "should enqueue DatapassWebhookRouterJob for matching files" do
     s3_client_mock = Object.new
     
     # Mock list_objects_v2
+    now_ts = Time.zone.now.strftime("%Y%m%d%H%M%S000")
     contents = [
-      OpenStruct.new(key: "prod/0001480_DataSource_HR-EmployeeDetails_TopicID_V1_20260308100000000_12345.json.enc"),
-      OpenStruct.new(key: "prod/0001480_DataSource_OtherTopic_TopicID_V1_20260308100000000_12345.json.enc")
+      OpenStruct.new(key: "prod/0001480_DataSource_HR-EmployeeDetails_TopicID_V1_#{now_ts}_12345.json.enc"),
+      OpenStruct.new(key: "prod/0001480_DataSource_OtherTopic_TopicID_V1_#{now_ts}_12345.json.enc")
     ]
     resp = OpenStruct.new(contents: contents, is_truncated: false)
     

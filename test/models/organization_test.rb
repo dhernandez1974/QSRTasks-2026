@@ -9,8 +9,7 @@ class OrganizationTest < ActiveSupport::TestCase
       street: "St",
       city: "City",
       state: "ST",
-      zip: "12345",
-      primary_operator: true
+      zip: "12345"
     )
     assert organization.valid?
   end
@@ -64,8 +63,7 @@ class OrganizationTest < ActiveSupport::TestCase
       street: "St",
       city: "City",
       state: "ST",
-      zip: "12345",
-      primary_operator: true
+      zip: "12345"
     )
     
     # Check that transparent access works
@@ -86,12 +84,33 @@ class OrganizationTest < ActiveSupport::TestCase
       street: "St",
       city: "City",
       state: "ST",
-      zip: "12345",
-      primary_operator: true
+      zip: "12345"
     )
     
     found_org = Organization.find_by(eid: "unique_eid")
     assert_not_nil found_org
     assert_equal "Searchable Org", found_org.name
+  end
+
+  test "set_default_departments should create departments and positions if user is present" do
+    org = Organization.new(
+      name: "Test Org", phone: "1234567890", eid: "test_eid",
+      street: "123 St", city: "City", state: "ST", zip: "12345"
+    )
+    user = User.new(
+      first_name: "Test", last_name: "User", email: "test@example.com",
+      password: "password123", organization: org
+    )
+    
+    # Manually calling set_default_departments as it's called after_create
+    # but self.contact might be nil if not saved yet.
+    org.save!
+    user.save!
+    
+    org.set_default_departments
+    
+    assert_equal 3, org.departments.count
+    assert_equal 9, org.positions.count
+    assert_equal user, org.departments.first.updated_by
   end
 end

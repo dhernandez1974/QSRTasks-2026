@@ -32,8 +32,18 @@
         <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @organization.eid %></dd>
       </div>
       <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Primary EID</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @organization.primary_eid %></dd>
+        <dt class="text-sm font-medium text-gray-500">Secondary EIDs</dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <% if @organization.secondary_eids.present? %>
+            <ul class="list-disc pl-5">
+              <% @organization.secondary_eids.each do |eid| %>
+                <li><%= eid %></li>
+              <% end %>
+            </ul>
+          <% else %>
+            None
+          <% end %>
+        </dd>
       </div>
       <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
         <dt class="text-sm font-medium text-gray-500">Address</dt>
@@ -41,10 +51,6 @@
           <%= @organization.street %><br>
           <%= @organization.city %>, <%= @organization.state %> <%= @organization.zip %>
         </dd>
-      </div>
-      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-        <dt class="text-sm font-medium text-gray-500">Primary Operator</dt>
-        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2"><%= @organization.primary_operator ? "Yes" : "No" %></dd>
       </div>
     </dl>
   </div>

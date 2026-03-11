@@ -4,11 +4,7 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
   def perform(organization_id)
     organization = Organization.find(organization_id)
     eids = [ organization.eid ]
-    eids << organization.primary_eid if organization.primary_eid.present? && !organization.primary_operator?
-
-    if organization.primary_operator?
-      eids += Organization.where(primary_eid: organization.eid).where(primary_operator: false).pluck(:eid)
-    end
+    eids += organization.secondary_eids if organization.secondary_eids.present?
 
     eids = eids.uniq.compact_blank
 
