@@ -19,8 +19,12 @@
       </div>
     </div>
     <div class="flex-shrink-0 flex space-x-2 w-full sm:w-auto">
-      <%= link_to "Edit", edit_organization_location_path(location), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent flex-1 sm:flex-none" %>
-      <%= button_to "Destroy", organization_location_path(location), method: :delete, class: "inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 cursor-pointer flex-1 sm:flex-none", data: { confirm: "Are you sure?" } %>
+      <% if policy(location).edit? %>
+        <%= link_to "Edit", edit_organization_location_path(location), class: "inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-accent flex-1 sm:flex-none" %>
+      <% end %>
+      <% if policy(location).destroy? %>
+        <%= button_to "Destroy", organization_location_path(location), method: :delete, class: "inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 cursor-pointer flex-1 sm:flex-none", data: { confirm: "Are you sure?" } %>
+      <% end %>
     </div>
   </div>
 
@@ -118,8 +122,12 @@
                   <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-600"><%= user.phone_number %></td>
                   <td class="px-3 py-4 whitespace-nowrap text-sm text-gray-500"><%= user.hire_date&.strftime("%m/%d/%Y") %></td>
                   <td class="px-3 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                    <%= link_to "View", organization_user_path(user), class: "text-brand-accent hover:text-orange-700" %>
-                    <%= link_to "Edit", edit_organization_user_path(user), class: "text-gray-600 hover:text-brand-accent" %>
+                    <% if policy(user).show? %>
+                      <%= link_to "View", organization_user_path(user), class: "text-brand-accent hover:text-orange-700" %>
+                    <% end %>
+                    <% if policy(user).edit? %>
+                      <%= link_to "Edit", edit_organization_user_path(user), class: "text-gray-600 hover:text-brand-accent" %>
+                    <% end %>
                   </td>
                 </tr>
               <% end %>

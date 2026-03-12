@@ -13,4 +13,6 @@
   <% end %>
 </div>
 
-<%= link_to "New department", new_organization_department_path %>
+<% if policy(Organization::Department).new? %>
+  <%= link_to "New department", new_organization_department_path %>
+<% end %>

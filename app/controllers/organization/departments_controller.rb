@@ -3,25 +3,29 @@ class Organization::DepartmentsController < ApplicationController
 
   # GET /organization/departments or /organization/departments.json
   def index
-    @organization_departments = Organization::Department.all
+    @organization_departments = policy_scope(Organization::Department.all)
   end
 
   # GET /organization/departments/1 or /organization/departments/1.json
   def show
+    authorize @organization_department
   end
 
   # GET /organization/departments/new
   def new
     @organization_department = Organization::Department.new
+    authorize @organization_department
   end
 
   # GET /organization/departments/1/edit
   def edit
+    authorize @organization_department
   end
 
   # POST /organization/departments or /organization/departments.json
   def create
     @organization_department = Organization::Department.new(organization_department_params)
+    authorize @organization_department
 
     respond_to do |format|
       if @organization_department.save
@@ -36,6 +40,7 @@ class Organization::DepartmentsController < ApplicationController
 
   # PATCH/PUT /organization/departments/1 or /organization/departments/1.json
   def update
+    authorize @organization_department
     respond_to do |format|
       if @organization_department.update(organization_department_params)
         format.html { redirect_to organization_department_path(@organization_department), notice: "Department was successfully updated.", status: :see_other }
@@ -49,6 +54,7 @@ class Organization::DepartmentsController < ApplicationController
 
   # DELETE /organization/departments/1 or /organization/departments/1.json
   def destroy
+    authorize @organization_department
     @organization_department.destroy!
 
     respond_to do |format|

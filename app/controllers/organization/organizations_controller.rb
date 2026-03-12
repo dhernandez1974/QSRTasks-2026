@@ -5,6 +5,7 @@ class Organization::OrganizationsController < ApplicationController
 
   # GET /organization/organizations/1
   def show
+    authorize @organization
   end
 
   private

@@ -1,0 +1,5 @@
+<div class="mb-4">
+  <%= link_to "Back to users", organization_users_path, class: "text-brand-accent hover:text-orange-700 font-medium" %>
+</div>
+
+<%= render partial: 'user', locals: { user: @user } %>

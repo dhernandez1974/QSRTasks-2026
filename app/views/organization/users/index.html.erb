@@ -1,0 +1,68 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Users" %>
+
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+  <h1 class="text-3xl font-bold text-gray-900">Users</h1>
+  <% if policy(User).new? %>
+    <%= link_to "New user", new_organization_user_path, class: "bg-brand-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:opacity-90 w-full sm:w-auto text-center" %>
+  <% end %>
+</div>
+
+<div id="users" class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Position</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">GEID</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">EID</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hire Date</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
+          <th scope="col" class="relative px-6 py-3">
+            <span class="sr-only">Actions</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @users.each do |user| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-medium text-gray-900">
+                <%= link_to "#{user.first_name} #{user.last_name}", organization_user_path(user), class: "text-brand-accent hover:underline" %>
+              </div>
+              <div class="text-sm text-gray-500"><%= user.email %></div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                <%= user.position&.name || "No Position" %>
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= user.geid %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= user.eid %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= user.hire_date&.strftime("%m/%d/%Y") %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= user.location&.name %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <% if current_user.admin? && user != current_user %>
+                <%= link_to "Masquerade", user_masquerade_index_path(masqueraded_resource_id: user.id), class: "text-green-600 hover:text-green-900 mr-3" %>
+              <% end %>
+              <%= link_to "View", organization_user_path(user), class: "text-brand-accent hover:opacity-80 mr-3" %>
+              <% if policy(user).edit? %>
+                <%= link_to "Edit", edit_organization_user_path(user), class: "text-indigo-600 hover:text-indigo-900" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

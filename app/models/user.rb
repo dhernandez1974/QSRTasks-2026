@@ -1,6 +1,10 @@
 class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :validatable, :confirmable, :lockable, :timeoutable,
-    :trackable
+    :trackable, :masqueradable
+
+  def self.masquerade_authorize_with
+    Proc.new { |user, target_user| user.admin? }
+  end
 
   belongs_to :organization, optional: true
   belongs_to :location, class_name: "Organization::Location", optional: true
@@ -11,6 +15,10 @@ class User < ApplicationRecord
 
   before_save :normalize_attributes
   validates :phone_number, uniqueness: true, allow_nil: true
+
+  def admin?
+    admin == true
+  end
 
   private
 

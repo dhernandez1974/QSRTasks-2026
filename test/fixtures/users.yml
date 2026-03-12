@@ -10,10 +10,14 @@ one:
   confirmed_at: <%= Time.now %>
   organization: one
   admin: true
+  last_name: AAA
+  first_name: UserOne
 
 two:
   email: user_two@example.com
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   confirmed_at: <%= Time.now %>
-  organization: two
-  admin: true
+  organization: one
+  admin: false
+  last_name: ZZZ
+  first_name: UserTwo

@@ -18,7 +18,7 @@ class Organization::Position < ApplicationRecord
         remove: {access: false, organization: false, department: false, location: false}},
       organization: {
         organization: {Show: false},
-        store: {List: false, Show: false, Add: false, Edit: false, Remove: false},
+        location: {List: false, Show: false, Add: false, Edit: false, Remove: false},
         department: {List: false, Show: false, Add: false, Edit: false, Remove: false},
         position: {List: false, Show: false, Add: false, Edit: false, Remove: false},
         reports: {List: false, Show: false, Add: false, Edit: false, Remove: false}},

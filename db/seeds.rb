@@ -19,15 +19,17 @@ stagg = Organization.new(
 )
 
 contact = User.new(
-  first_name: 'Stagg',
-  last_name: 'Restaurants',
-  email: 'stagg@qsrtasks.com',
-  phone_number: '210-375-7100',
-  password: 'password123',
-  password_confirmation: 'password123',
+  first_name: 'Daniel',
+  last_name: 'Hernandez',
+  email: 'dhernandez@stagg.com',
+  phone_number: '210-771-8720',
+  password: 'mina1973',
+  password_confirmation: 'mina1973',
   admin: true,
-  organization: stagg
-)
+  organization: stagg,
+  birth_date: '1974-08-26',
+  eid: 'e0057706',
+  hire_date: '2006-04-01')
 
 stagg.save!
 contact.save!

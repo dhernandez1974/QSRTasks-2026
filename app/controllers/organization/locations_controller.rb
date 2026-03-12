@@ -4,25 +4,29 @@ class Organization::LocationsController < ApplicationController
 
   # GET /locations or /locations.json
   def index
-    @locations = Organization::Location.all
+    @locations = policy_scope(Organization::Location.all)
   end
 
   # GET /locations/1 or /locations/1.json
   def show
+    authorize @location
   end
 
   # GET /locations/new
   def new
     @location = Organization::Location.new
+    authorize @location
   end
 
   # GET /locations/1/edit
   def edit
+    authorize @location
   end
 
   # POST /locations or /locations.json
   def create
     @location = Organization::Location.new(location_params)
+    authorize @location
 
     respond_to do |format|
       if @location.save
@@ -37,6 +41,7 @@ class Organization::LocationsController < ApplicationController
 
   # PATCH/PUT /locations/1 or /locations/1.json
   def update
+    authorize @location
     respond_to do |format|
       if @location.update(location_params)
         format.html { redirect_to organization_location_path(@location), notice: "Location was successfully updated.", status: :see_other }
@@ -50,6 +55,7 @@ class Organization::LocationsController < ApplicationController
 
   # DELETE /locations/1 or /locations/1.json
   def destroy
+    authorize @location
     @location.destroy!
 
     respond_to do |format|
