@@ -83,7 +83,7 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
     eh = Datapass::EmployeeHistory.where(geid: geid).order(created_at: :desc).first
     if eh && eh.repeating_full_jtc_history.present? && data[:jtc].present?
       rate_entry = eh.repeating_full_jtc_history.find do |entry|
-        entry["Jtc"] == data[:jtc] && entry["Type"] == "P" && entry["EndDate"].blank?
+        entry["JTC"] == data[:jtc] && entry["Type"] == "P" && entry["EndDate"].blank?
       end
       data[:rate] = rate_entry["PayRate"] if rate_entry
     end

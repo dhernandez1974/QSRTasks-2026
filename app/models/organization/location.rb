@@ -13,6 +13,18 @@ class Organization::Location < ApplicationRecord
   before_save :normalize_attributes
   validates :email, :phone, presence: true, uniqueness: { case_sensitive: false }
 
+  def operations_manager
+    users.joins(:position).find_by(organization_positions: { name: "Operations Manager" })
+  end
+
+  def supervisor
+    users.joins(:position).find_by(organization_positions: { name: "Supervisor" })
+  end
+
+  def general_manager
+    users.joins(:position).find_by(organization_positions: { name: "General Manager" })
+  end
+
   private
 
   def normalize_attributes

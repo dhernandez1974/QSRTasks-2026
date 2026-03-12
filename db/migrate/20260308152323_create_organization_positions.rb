@@ -3,7 +3,7 @@ class CreateOrganizationPositions < ActiveRecord::Migration[8.1]
     create_table :organization_positions, id: :uuid do |t|
       t.references :organization, null: false, foreign_key: true, type: :uuid
       t.references :department, null: false, foreign_key: { to_table: :organization_departments }, type: :uuid
-      t.references :updated_by, null: false, foreign_key: { to_table: :users }, type: :uuid
+      t.references :updated_by, null: true, foreign_key: { to_table: :users }, type: :uuid
       t.string :name, null: false
       t.string :rate_type, default: "Hourly"
       t.boolean :maintenance_team, default: false

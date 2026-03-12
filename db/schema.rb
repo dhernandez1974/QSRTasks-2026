@@ -281,7 +281,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_180430) do
     t.string "name"
     t.uuid "organization_id", null: false
     t.datetime "updated_at", null: false
-    t.uuid "updated_by_id", null: false
+    t.uuid "updated_by_id"
     t.index ["organization_id"], name: "index_organization_departments_on_organization_id"
     t.index ["updated_by_id"], name: "index_organization_departments_on_updated_by_id"
   end
@@ -301,7 +301,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_180430) do
     t.string "rate_type", default: "Hourly"
     t.uuid "reports_to_id"
     t.datetime "updated_at", null: false
-    t.uuid "updated_by_id", null: false
+    t.uuid "updated_by_id"
     t.index ["department_id"], name: "index_organization_positions_on_department_id"
     t.index ["organization_id"], name: "index_organization_positions_on_organization_id"
     t.index ["reports_to_id"], name: "index_organization_positions_on_reports_to_id"
