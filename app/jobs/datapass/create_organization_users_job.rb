@@ -70,12 +70,22 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
       data[:location_ids] << ed.location_id if ed.location_id.present?
 
       if ed.jtc.present?
+        data[:jtc] = ed.jtc # Store JTC to use for rate lookup
         jtc_pos = Datapass::JtcPosition.find_by(jtc: ed.jtc)
         if jtc_pos&.matching_position.present?
           org_pos = Organization::Position.find_by(organization_id: data[:organization_id], name: jtc_pos.matching_position)
           data[:position_id] ||= org_pos.id if org_pos
         end
       end
+    end
+
+    # EmployeeHistory for Rate
+    eh = Datapass::EmployeeHistory.where(geid: geid).order(created_at: :desc).first
+    if eh && eh.repeating_full_jtc_history.present? && data[:jtc].present?
+      rate_entry = eh.repeating_full_jtc_history.find do |entry|
+        entry["Jtc"] == data[:jtc] && entry["Type"] == "P" && entry["EndDate"].blank?
+      end
+      data[:rate] = rate_entry["PayRate"] if rate_entry
     end
 
     # Idmgmt
@@ -123,7 +133,7 @@ class Datapass::CreateOrganizationUsersJob < ApplicationJob
 
     # Set attributes if they are present and user's current attribute is blank
     data.each do |key, value|
-      next if key == :location_ids
+      next if key == :location_ids || key == :jtc
       user.send("#{key}=", value) if value.present? && user.send(key).blank?
     end
 
