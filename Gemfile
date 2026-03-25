@@ -71,7 +71,7 @@ group :test do
   gem "selenium-webdriver"
 end
 
-gem 'aws-sdk-core', '~> 3.243'
+gem 'aws-sdk-core', '~> 3.244'
 gem 'aws-sdk-s3', '~> 1.215'
 gem 'pundit', '~> 2.5', '>= 2.5.2' #Authorization
 gem 'devise_masquerade', '~> 2.1', '>= 2.1.4' #Masquerade users for testing
