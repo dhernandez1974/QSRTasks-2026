@@ -2,9 +2,6 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable, :recoverable, :validatable, :confirmable, :lockable, :timeoutable,
     :trackable, :masqueradable
 
-  def self.masquerade_authorize_with
-    Proc.new { |user, target_user| user.admin? }
-  end
 
   belongs_to :organization, optional: true
   belongs_to :location, class_name: "Organization::Location", optional: true

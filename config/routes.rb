@@ -22,14 +22,15 @@ Rails.application.routes.draw do
     passwords: "user/passwords",
     confirmations: "user/confirmations",
     unlocks: "user/unlocks",
-    masquerades: "user/masquerades"
   }
   devise_for :admins, controllers: {
     sessions: "administrator/admin/sessions",
     registrations: "administrator/admin/registrations",
     passwords: "administrator/admin/passwords",
     confirmations: "administrator/admin/confirmations",
-    unlocks: "administrator/admin/unlocks"
+    unlocks: "administrator/admin/unlocks",
+    masquerades: "administrator/admin/masquerades"
+
   }
 
   authenticate :admin do

@@ -53,7 +53,7 @@
             </td>
             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
               <% if current_user.admin? && user != current_user %>
-                <%= link_to "Masquerade", user_masquerade_index_path(masqueraded_resource_id: user.id), class: "text-green-600 hover:text-green-900 mr-3" %>
+                <%= link_to "Login as", masquerade_path(user), class: "text-green-600 hover:text-green-900 mr-3" %>
               <% end %>
               <%= link_to "View", organization_user_path(user), class: "text-brand-accent hover:opacity-80 mr-3" %>
               <% if policy(user).edit? %>
