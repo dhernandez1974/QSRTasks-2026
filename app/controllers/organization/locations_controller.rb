@@ -4,7 +4,7 @@ class Organization::LocationsController < ApplicationController
 
   # GET /locations or /locations.json
   def index
-    @locations = policy_scope(Organization::Location.all)
+    @locations = policy_scope(Organization::Location.all.order(location_type: :desc, number: :asc))
   end
 
   # GET /locations/1 or /locations/1.json

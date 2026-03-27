@@ -7,7 +7,7 @@ end
 
 Admin.first.confirm
 
-stagg = Organization.new(
+stagg = Organization.create!(
   eid: 'ef002032',
   name: 'Stagg Restaurants Partnership',
   phone: '210-375-7100',
@@ -15,27 +15,24 @@ stagg = Organization.new(
   city: 'San Antonio',
   state: 'TX',
   zip: '78230',
-  secondary_eids: ['e0071374']
+  secondary_eids: ['e0071374'],
+  contact_attributes: {
+    first_name: 'Daniel',
+    last_name: 'Hernandez',
+    email: 'dhernandez@staggrp.com',
+    phone_number: '210-771-8720',
+    password: 'mina1973',
+    password_confirmation: 'mina1973',
+    admin: true,
+    birth_date: '1974-08-26',
+    eid: 'e0057706',
+    hire_date: '2006-04-01'
+  }
 )
 
-contact = User.new(
-  first_name: 'Daniel',
-  last_name: 'Hernandez',
-  email: 'dhernandez@stagg.com',
-  phone_number: '210-771-8720',
-  password: 'mina1973',
-  password_confirmation: 'mina1973',
-  admin: true,
-  organization: stagg,
-  birth_date: '1974-08-26',
-  eid: 'e0057706',
-  hire_date: '2006-04-01')
+stagg.contact.confirm
 
-stagg.save!
-contact.save!
-contact.confirm
-
-stagg.set_default_departments
+# stagg.set_default_departments
 
 # stagg variable already initialized above
 puts "Creating Locations"
@@ -618,6 +615,50 @@ Organization::Location.find_or_create_by!(number: 39958) do |loc|
   loc.zip = '78111'
   loc.email = "dal.39958@us.stores.mcd.com"
   loc.phone = '1-830-777-7777'
+  loc.safe_count = 2000
+  loc.ipad_count = 3
+  loc.headset_count = 7
+  loc.location_type = 'Traditional'
+  loc.organization_id = stagg.id
+end
+Organization::Location.find_or_create_by!(number: 43207) do |loc|
+  loc.name = 'SE Military'
+  loc.street = '2811 SE Military'
+  loc.city = 'San Antonio'
+  loc.state = 'TX'
+  loc.zip = '78223'
+  loc.email = "dal.43207@us.stores.mcd.com"
+  loc.phone = '1-830-555-7777'
+  loc.safe_count = 2000
+  loc.ipad_count = 3
+  loc.headset_count = 7
+  loc.location_type = 'Traditional'
+  loc.organization_id = stagg.id
+end
+
+Organization::Location.find_or_create_by!(number: 44377) do |loc|
+  loc.name = 'Southcross & WW White'
+  loc.street = '2811 WW White'
+  loc.city = 'San Antonio'
+  loc.state = 'TX'
+  loc.zip = '78223'
+  loc.email = "dal.44377@us.stores.mcd.com"
+  loc.phone = '1-830-444-7777'
+  loc.safe_count = 2000
+  loc.ipad_count = 3
+  loc.headset_count = 7
+  loc.location_type = 'Traditional'
+  loc.organization_id = stagg.id
+end
+
+Organization::Location.find_or_create_by!(number: 43130) do |loc|
+  loc.name = 'Tezel Rd'
+  loc.street = '2811 Tezel Rd'
+  loc.city = 'San Antonio'
+  loc.state = 'TX'
+  loc.zip = '78223'
+  loc.email = "dal.43130@us.stores.mcd.com"
+  loc.phone = '1-830-333-7777'
   loc.safe_count = 2000
   loc.ipad_count = 3
   loc.headset_count = 7

@@ -8,7 +8,7 @@ class CreateOrganizationPositions < ActiveRecord::Migration[8.1]
       t.string :rate_type, default: "Hourly"
       t.boolean :maintenance_team, default: false
       t.boolean :maintenance_lead, default: false
-      t.references :reports_to, null: false, foreign_key: { to_table: :users }, type: :uuid
+      t.references :reports_to, null: true, foreign_key: { to_table: :organization_positions }, type: :uuid
       t.string :jtc
       t.string :authorization_level, default: "Position"
       t.jsonb :authorized, default: {}

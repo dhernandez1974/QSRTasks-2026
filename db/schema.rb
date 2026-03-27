@@ -259,7 +259,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_180430) do
     t.integer "ipad_count"
     t.string "location_type", default: "Traditional"
     t.string "name", null: false
-    t.string "number", null: false
+    t.integer "number", null: false
     t.uuid "organization_id"
     t.string "phone", null: false
     t.integer "safe_count", null: false
@@ -380,7 +380,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_180430) do
   add_foreign_key "organization_departments", "organizations"
   add_foreign_key "organization_departments", "users", column: "updated_by_id"
   add_foreign_key "organization_positions", "organization_departments", column: "department_id"
-  add_foreign_key "organization_positions", "organization_departments", column: "reports_to_id"
+  add_foreign_key "organization_positions", "organization_positions", column: "reports_to_id"
   add_foreign_key "organization_positions", "organizations"
   add_foreign_key "organization_positions", "users", column: "updated_by_id"
   add_foreign_key "users", "locations"
