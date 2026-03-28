@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_12_180430) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_28_132225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -40,6 +40,35 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_180430) do
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_admins_on_unlock_token", unique: true
+  end
+
+  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "case_number"
+    t.string "case_origin"
+    t.string "comment_type"
+    t.datetime "created_at", null: false
+    t.text "customer_comments"
+    t.uuid "employee_named_id"
+    t.string "issue_category"
+    t.string "issue_reason"
+    t.string "issue_subcode"
+    t.uuid "location_id", null: false
+    t.string "order_point"
+    t.uuid "organization_id", null: false
+    t.boolean "parent"
+    t.string "parent_case_number"
+    t.string "pickup_point"
+    t.boolean "propel"
+    t.string "source"
+    t.string "status"
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.date "visit_date"
+    t.time "visit_time"
+    t.index ["employee_named_id"], name: "index_comments_on_employee_named_id"
+    t.index ["location_id"], name: "index_comments_on_location_id"
+    t.index ["organization_id"], name: "index_comments_on_organization_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "datapass_employee_details", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -363,6 +392,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_12_180430) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "comments", "locations"
+  add_foreign_key "comments", "organizations"
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "users", column: "employee_named_id"
   add_foreign_key "datapass_employee_details", "locations"
   add_foreign_key "datapass_employee_details", "organizations"
   add_foreign_key "datapass_employee_histories", "locations"

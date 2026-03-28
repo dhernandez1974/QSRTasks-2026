@@ -1,0 +1,19 @@
+<% content_for :title, "Edit Comment" %>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">Edit Comment</h1>
+  </div>
+
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <%= render "form", comment: @comment %>
+    </div>
+  </div>
+
+  <div class="mt-6 flex space-x-4">
+    <%= link_to "Show this comment", organization_comments_comment_path(@comment), class: "text-brand-accent hover:opacity-80 font-medium" %>
+    <span class="text-gray-300">|</span>
+    <%= link_to "Back to comments", organization_comments_comments_path, class: "text-brand-accent hover:opacity-80 font-medium" %>
+  </div>
+</div>

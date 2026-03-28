@@ -1,0 +1,17 @@
+<% content_for :title, "New Comment" %>
+
+<div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8">
+    <h1 class="text-3xl font-bold text-gray-900">New Comment</h1>
+  </div>
+
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <%= render "form", comment: @comment %>
+    </div>
+  </div>
+
+  <div class="mt-6">
+    <%= link_to "Back to comments", organization_comments_comments_path, class: "text-brand-accent hover:opacity-80 font-medium" %>
+  </div>
+</div>

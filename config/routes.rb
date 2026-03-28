@@ -2,6 +2,9 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   namespace :organization do
+    namespace :comments do
+      resources :comments
+    end
     resources :departments
     resources :locations
     resources :users
