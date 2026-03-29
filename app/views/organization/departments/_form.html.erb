@@ -1,4 +1,4 @@
-<%= form_with(model: [:organization, organization_department]) do |form| %>
+<%= form_with(model: organization_department) do |form| %>
   <% if organization_department.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(organization_department.errors.count, "error") %> prohibited this organization_department from being saved:</h2>

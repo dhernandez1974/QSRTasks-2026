@@ -1,6 +1,6 @@
 class OrganizationPolicy < ApplicationPolicy
   def show?
-    authorized?(:organization, :organization, :Show)
+    user.admin? || authorized?(:organization, :organization, :Show)
   end
 
   class Scope < Scope

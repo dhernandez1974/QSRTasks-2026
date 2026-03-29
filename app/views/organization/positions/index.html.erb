@@ -1,0 +1,56 @@
+<% content_for :title, "Positions" %>
+
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+  <h1 class="text-3xl font-bold text-gray-900">Positions</h1>
+  <% if policy(Organization::Position).new? %>
+    <%= link_to "New position", new_organization_position_path, class: "bg-brand-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:opacity-90 w-full sm:w-auto text-center" %>
+  <% end %>
+</div>
+
+<div id="positions" class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Department</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Rate Type</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Job Tier</th>
+          <th scope="col" class="relative px-6 py-3">
+            <span class="sr-only">Actions</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <% @organization_positions.each do |position| %>
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+              <%= position.name %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= position.department&.name %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= position.rate_type %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              <%= position.job_tier %>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <%= link_to "View", organization_position_path(position), class: "text-brand-accent hover:opacity-80 mr-3" %>
+              <% if policy(position).edit? %>
+                <%= link_to "Edit", edit_organization_position_path(position), class: "text-indigo-600 hover:text-indigo-900" %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mt-8">
+  <%= link_to organization_organization_path(current_user.organization), class: "text-sm font-medium text-brand-accent hover:opacity-80" do %>
+    &larr; Back to Organization
+  <% end %>
+</div>

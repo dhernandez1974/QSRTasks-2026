@@ -1,22 +1,22 @@
 class Organization::PositionPolicy < ApplicationPolicy
   def index?
-    authorized?(:organization, :position, :List)
+    user.admin? || authorized?(:organization, :position, :List)
   end
 
   def show?
-    authorized?(:organization, :position, :Show)
+    user.admin? || authorized?(:organization, :position, :Show)
   end
 
   def create?
-    authorized?(:organization, :position, :Add)
+    user.admin? || authorized?(:organization, :position, :Add)
   end
 
   def update?
-    authorized?(:organization, :position, :Edit)
+    user.admin? || authorized?(:organization, :position, :Edit)
   end
 
   def destroy?
-    authorized?(:organization, :position, :Remove)
+    user.admin? || authorized?(:organization, :position, :Remove)
   end
 
   class Scope < Scope

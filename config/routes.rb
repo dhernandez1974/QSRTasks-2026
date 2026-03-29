@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :departments
     resources :locations
     resources :users
+    resources :positions
     resources :organizations, only: [ :show ]
   end
 

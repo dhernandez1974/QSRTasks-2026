@@ -43,24 +43,24 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_28_132225) do
   end
 
   create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.string "case_number"
-    t.string "case_origin"
-    t.string "comment_type"
+    t.string "case_number", null: false
+    t.string "case_origin", default: "Not Disclosed", null: false
+    t.string "comment_type", null: false
     t.datetime "created_at", null: false
-    t.text "customer_comments"
+    t.text "customer_comments", null: false
     t.uuid "employee_named_id"
-    t.string "issue_category"
-    t.string "issue_reason"
-    t.string "issue_subcode"
+    t.string "issue_category", null: false
+    t.string "issue_reason", null: false
+    t.string "issue_subcode", null: false
     t.uuid "location_id", null: false
-    t.string "order_point"
+    t.string "order_point", default: "Not Disclosed", null: false
     t.uuid "organization_id", null: false
-    t.boolean "parent"
-    t.string "parent_case_number"
-    t.string "pickup_point"
-    t.boolean "propel"
+    t.boolean "parent", default: true
+    t.string "parent_case_number", null: false
+    t.string "pickup_point", default: "Not Disclosed", null: false
+    t.boolean "propel", default: true
     t.string "source"
-    t.string "status"
+    t.string "status", default: "Open"
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
     t.date "visit_date"

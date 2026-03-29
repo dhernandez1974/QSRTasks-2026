@@ -1,0 +1,17 @@
+<% content_for :title, "New Position" %>
+
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="mb-8 flex items-center justify-between">
+    <div>
+      <h1 class="text-3xl font-bold text-gray-900">New Position</h1>
+      <p class="mt-2 text-sm text-gray-600">Create a new position within your organization.</p>
+    </div>
+    <%= link_to "Back to positions", organization_positions_path, class: "text-sm font-medium text-brand-accent hover:opacity-80" %>
+  </div>
+
+  <div class="bg-white shadow sm:rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <%= render "form", organization_position: @organization_position %>
+    </div>
+  </div>
+</div>

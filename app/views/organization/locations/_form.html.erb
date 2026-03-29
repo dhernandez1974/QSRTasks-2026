@@ -1,4 +1,4 @@
-<%= form_with(model: [:organization, location], url: location.new_record? ? organization_locations_path : organization_location_path(location), class: "space-y-6") do |form| %>
+<%= form_with(model: location, class: "space-y-6") do |form| %>
   <% if location.errors.any? %>
     <div class="bg-red-50 p-4 rounded-md border border-red-200">
       <h2 class="text-red-800 text-sm font-medium"><%= pluralize(location.errors.count, "error") %> prohibited this location from being saved:</h2>
