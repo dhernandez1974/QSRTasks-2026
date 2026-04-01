@@ -72,6 +72,6 @@ group :test do
 end
 
 gem 'aws-sdk-core', '~> 3.244'
-gem 'aws-sdk-s3', '~> 1.217'
+gem 'aws-sdk-s3', '~> 1.218'
 gem 'pundit', '~> 2.5', '>= 2.5.2' #Authorization
 gem 'devise_masquerade', '~> 2.1', '>= 2.1.4' #Masquerade users for testing
